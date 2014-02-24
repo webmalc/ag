@@ -1,0 +1,62 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand">AutoGRU</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        
+        <div class="navbar-collapse collapse" id="navbar-main">
+            
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Раздел номер один <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="themes">
+                        <li><a href="../default/">Default</a></li>
+                        <li><a href="../amelia/">Amelia</a></li>
+                        <li><a href="../cerulean/">Cerulean</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../help/">Ссылка</a></li>
+                <li><a href="../help/">Еще ссылка</a></li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Другой пункт меню <span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="download">
+                            <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                            <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                            <li class="divider"></li>
+                            <li><a href="./variables.less">variables.less</a></li>
+                        <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                        </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="" id="user_gravatar_link" data-toggle="tooltip" data-placement="left" title="Tooltip on left"><img src="{{ gravatar(app.user.email) }}" alt="{{ app.user.username }} gravatar" class="img-circle" style="vertical-align: middle;"></a></li>
+                <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username }, 'FOSUserBundle') }}</a>
+                    <ul class="dropdown-menu" aria-labelledby="user">
+                        <li><a href="http://gravatar.com/emails/">Мой профиль</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ path("fos_user_security_logout") }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                <li class="dropdown">
+                    <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">{{ 'layout.login'|trans({}, 'FOSUserBundle') }} <b class="caret"></b></a>
+                    {% include 'AGBaseBundle::loginForm.html.twig' %}
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</div>

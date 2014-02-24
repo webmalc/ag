@@ -1,0 +1,11 @@
+{% extends 'AGBaseBundle::meta.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    {% block top_navbar %}
+        {% include 'AGBaseBundle::topNavbar.html.twig' %}
+    {% endblock %}
+{% endblock %}
+
+
+
