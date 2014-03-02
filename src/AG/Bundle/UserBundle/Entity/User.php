@@ -8,6 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @ORM\AttributeOverrides({
+ *      @ORM\AttributeOverride(name="email", column=@ORM\Column(type="string", name="email", length=255, unique=true, nullable=true)),
+ *      @ORM\AttributeOverride(name="emailCanonical", column=@ORM\Column(type="string", name="email_canonical", length=255, unique=true, nullable=true))
+ * })
  */
 class User extends BaseUser
 {
@@ -23,7 +27,7 @@ class User extends BaseUser
         parent::__construct();
     }
 
-    public function setEmail($email)
+    /*public function setEmail($email)
     {
         parent::setEmail($email);
         $this->setUsername($email);
@@ -33,5 +37,5 @@ class User extends BaseUser
     {
         parent::setEmailCanonical($emailCanonical);
         $this->setUsernameCanonical($emailCanonical);
-    }
+    }*/
 }
