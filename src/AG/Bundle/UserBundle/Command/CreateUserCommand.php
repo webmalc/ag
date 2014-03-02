@@ -19,7 +19,7 @@ class CreateUserCommand extends Base
             ->setName('ag:user:create')
             ->setDescription('Create a user.')
             ->setDefinition(array(
-                new InputArgument('username', InputArgument::REQUIRED, 'The username'),
+                new InputArgument('username', InputArgument::REQUIRED, 'The phone'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputArgument('email', InputArgument::OPTIONAL, 'The email'),
                 new InputOption('super-admin', null, InputOption::VALUE_NONE, 'Set the user as super admin'),
@@ -56,10 +56,10 @@ EOT
         if (!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
-                'Please choose a username:',
+                'Please choose a phone:',
                 function($username) {
                     if (empty($username)) {
-                        throw new \Exception('Username can not be empty');
+                        throw new \Exception('Phone can not be empty');
                     }
 
                     return $username;

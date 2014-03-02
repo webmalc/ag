@@ -17,7 +17,7 @@ group:
 
 security:
     login:
-        username: "email@example.ru"
+        username: "телефон или e-mail"
         password: "пароль"
         remember_me: Запомнить меня?
         submit: Войти

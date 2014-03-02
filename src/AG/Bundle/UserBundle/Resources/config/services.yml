@@ -10,3 +10,8 @@ services:
         arguments:  ["@http_kernel", "@security.http_utils", {}, "@logger"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
+            
+    ag.user_provider.username_email:
+        class:  AG\Bundle\UserBundle\Security\EmailUserProvider
+        public: false
+        arguments:  ["@fos_user.user_manager"]

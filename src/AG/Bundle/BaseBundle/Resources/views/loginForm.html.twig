@@ -3,12 +3,12 @@
         <div class="row">
             <div class="col-md-12">
                 <form class="form navbar-login-form" role="form" method="post" action="{{ path("fos_user_security_check") }}" accept-charset="UTF-8" id="navbar-login-form">
-                    <div class="form-group">
-                        <label class="sr-only" for="navbar-login-email">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-                        <input type="email" name="_username" class="form-control" id="navbar-login-email" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input type="text" name="_username" class="form-control" id="navbar-login-email" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="navbar-login-password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input type="password" name="_password" class="form-control" id="navbar-login-password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required>
                     </div>
                     <div class="checkbox">
@@ -24,7 +24,9 @@
     </li>
 <li class="divider"></li>
 <li>
-    <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
-    <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+    <form id="ulogin-form">
+        <script src="//ulogin.ru/js/ulogin.js"></script>
+        <div id="uLogin" data-ulogin="display=panel;fields=first_name,last_name;providers=vkontakte,facebook,mailru,google;hidden=other;redirect_uri=http%3A%2F%2Ftest.home"></div>
+    </form>
 </li>
 </ul>
