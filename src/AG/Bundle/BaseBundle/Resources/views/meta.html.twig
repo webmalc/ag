@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" ng-app="ag">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +15,7 @@
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/flatly/bootstrap.min.css"/>
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
             {% stylesheets filter='cssrewrite, uglifycss' 
-                '@AGBaseBundle/Resources/public/css/ag/*'
+                '@AGBaseBundle/Resources/public/css/app/*'
             %}
             <link rel="stylesheet" href="{{ asset_url }}"/>
             {% endstylesheets %}
@@ -33,11 +33,12 @@
         
         {% block scripts %}
         <!-- Scripts -->
-            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-            <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
             {% javascripts filter='uglifyjs2'
-                '@AGBaseBundle/Resources/public/js/*'
+                '@AGBaseBundle/Resources/public/js/app/directives/*'
+                '@AGBaseBundle/Resources/public/js/app/*'
             %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
