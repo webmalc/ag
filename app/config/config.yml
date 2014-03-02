@@ -43,6 +43,10 @@ assetic:
         uglifyjs2:
             bin: /usr/local/bin/uglifyjs
             node: /usr/bin/nodejs
+        less:
+            node: /usr/bin/nodejs
+            node_paths: [/usr/local/lib/node_modules/]
+            apply_to: "\.less$"
 
 # Doctrine Configuration
 doctrine:
