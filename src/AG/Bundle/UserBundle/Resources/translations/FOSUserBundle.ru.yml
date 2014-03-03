@@ -12,8 +12,9 @@ group:
         deleted: Группа удалена
 
 # Security
-"Bad credentials": Неправильное имя пользователя или пароль
-"User account is disabled.": Учетная запись отключена.
+"Bad credentials": Что-то неправильно
+"User account is disabled.": Вы заблокированы
+"User account is locked.": Вы заблокированы
 
 security:
     login:

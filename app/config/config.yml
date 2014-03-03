@@ -113,3 +113,7 @@ ornicar_gravatar:
     rating: x
     size: 50
     default: mm
+
+# FOSJsRoutingBundle Configuration
+fos_js_routing:
+    routes_to_expose: [fos_user_security_check]

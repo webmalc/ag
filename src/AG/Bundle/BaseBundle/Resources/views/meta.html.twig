@@ -1,5 +1,6 @@
+{% spaceless %}
 <!DOCTYPE html>
-<html lang="ru" ng-app="ag">
+<html lang="ru" ng-app="agApp">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,16 +34,36 @@
         
         {% block scripts %}
         <!-- Scripts -->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-            <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
-            {% javascripts filter='uglifyjs2'
-                '@AGBaseBundle/Resources/public/js/app/directives/*'
-                '@AGBaseBundle/Resources/public/js/app/*'
-            %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+            
+            {% if app.environment == 'dev' %}
+            
+                <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+                <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+                {% javascripts filter='uglifyjs2'
+                    '@AGBaseBundle/Resources/public/js/app/directives/*'
+                    '@AGBaseBundle/Resources/public/js/app/*'
+                %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            
+            {% else %}
+                
+                    {% javascripts filter='uglifyjs2'
+                        'bundles/fosjsrouting/js/router.js'
+                        'js/fos_js_routes.js'
+                        '@AGBaseBundle/Resources/public/js/app/directives/*'
+                        '@AGBaseBundle/Resources/public/js/app/*'
+                    %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                    {% endjavascripts %}
+                
+            {% endif %}
         {% endblock %}
 
     </body>
 </html>
+{% endspaceless %}
 

@@ -1,3 +1,7 @@
+home:
+    path:      /
+#    defaults:  { _controller: AcmeDemoBundle:Main:homepage }
+    
 fh_user:
     resource: "@AGUserBundle/Controller/"
     type:     annotation
@@ -6,6 +10,9 @@ fh_user:
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /user
+    
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 #fos_user_profile:
 #    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

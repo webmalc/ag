@@ -1,13 +1,13 @@
 services:
     security.authentication.success_handler:
         class:  AG\Bundle\UserBundle\Security\AuthenticationSuccessHandler
-        arguments:  ["@security.http_utils", {}]
+        arguments:  ["@security.http_utils", {}, "@session", "@router"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
             
     security.authentication.failure_handler:
         class:  AG\Bundle\UserBundle\Security\AuthenticationFailureHandler
-        arguments:  ["@http_kernel", "@security.http_utils", {}, "@logger"]
+        arguments:  ["@http_kernel", "@security.http_utils", {}, "@logger", "@translator"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
             
