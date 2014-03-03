@@ -2,18 +2,18 @@
     <li>
         <div class="row">
             <div class="col-md-12" ng-controller="LoginController">
-                <form class="form navbar-login-form" ng-submit="processForm()" role="form" method="post" data-href="{{ path("fos_user_security_check") }}" accept-charset="UTF-8" id="navbar-login-form">
+                <form class="form navbar-login-form" form-autofill-fix ng-submit="processForm()" role="form" method="post" data-href="{{ path("fos_user_security_check") }}" accept-charset="UTF-8" id="navbar-login-form">
                     
                     <div class="alert alert-danger" ng-show="error">
                         Упс! {[{error}]}
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" name="_username" ng-model="login._username" class="form-control" id="navbar-login-username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required value="">
+                        <input type="text" name="_username" ng-model="login._username" class="form-control" id="navbar-login-username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required ng-required value="">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" name="_password" ng-model="login._password" class="form-control" id="navbar-login-password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required value="">
+                        <input type="password" name="_password" ng-model="login._password" class="form-control" id="navbar-login-password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required ng-required value="">
                     </div>
                     <div class="checkbox">
                         <label><input type="checkbox" name="_remember_me" ng-model="login._remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
