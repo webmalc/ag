@@ -1,0 +1,13 @@
+<ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+    <li>
+        <div class="row">
+            <div class="col-md-12">
+                {% include 'AGBaseBundle::loginForm.html.twig' %}
+            </div>
+        </div>
+    </li>
+<li class="divider"></li>
+<li>
+    {% include 'AGBaseBundle::ulogin.html.twig' with {'uloginId': 'ulogin-navbar'} %}
+</li>
+</ul>

@@ -43,6 +43,7 @@
                 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
                 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
                 {% javascripts filter='uglifyjs2'
+                    '@AGBaseBundle/Resources/public/js/autofill-event.js'
                     '@AGBaseBundle/Resources/public/js/app/directives/*'
                     '@AGBaseBundle/Resources/public/js/app/*'
                 %}
@@ -52,6 +53,7 @@
             {% else %}
                 
                     {% javascripts filter='uglifyjs2'
+                        '@AGBaseBundle/Resources/public/js/autofill-event.js'
                         'bundles/fosjsrouting/js/router.js'
                         'js/fos_js_routes.js'
                         '@AGBaseBundle/Resources/public/js/app/directives/*'
