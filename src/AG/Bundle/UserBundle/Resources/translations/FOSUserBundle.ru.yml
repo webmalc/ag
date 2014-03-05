@@ -20,7 +20,7 @@ security:
     login:
         username: "телефон или e-mail"
         password: "пароль"
-        remember_me: Запомнить меня?
+        remember_me: запомнить?
         submit: Войти
 
 # Profile

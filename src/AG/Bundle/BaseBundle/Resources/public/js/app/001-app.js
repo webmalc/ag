@@ -2,6 +2,7 @@ var navbarApp = angular.module('navbarApp', []);
 
 angular.module('agApp', [
     'ui.bootstrap',
+    'ngAnimate',
     'ag.directives.dropdown',
     'navbarApp'
 ]).config(['$httpProvider', '$interpolateProvider', function ($httpProvider, $interpolateProvider) {

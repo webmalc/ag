@@ -4,19 +4,17 @@
 
 {% block content %}
     <div class="row">
-    <div class="col-lg-4 col-lg-offset-4 ">
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Вход</h3>
-  </div>
-  <div class="panel-body">
-      {% include 'AGBaseBundle::loginForm.html.twig' %}
-      <hr>
-      {% include 'AGBaseBundle::ulogin.html.twig' with {'uloginId': 'ulogin-page'}  %}
-  </div>
-</div>
+        <div class="col-lg-4 col-lg-offset-4 ">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Войти</h3>
+                </div>
+                <div class="panel-body">
+                    {% include 'AGBaseBundle::loginForm.html.twig' %}
+                    <hr>
+                    {% include 'AGBaseBundle::ulogin.html.twig' with {'uloginId': 'ulogin-page'}  %}
+                </div>
+            </div>
         </div>
-        </div>
-
-    
+    </div>
 {% endblock %}

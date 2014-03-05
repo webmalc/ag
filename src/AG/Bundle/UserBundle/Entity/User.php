@@ -5,21 +5,15 @@ namespace AG\Bundle\UserBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @ORM\AttributeOverrides({
- *      @ORM\AttributeOverride(
- *          name="email", 
- *          column=@ORM\Column(type="string", name="email", length=255, unique=true, nullable=true)),
- *      @ORM\AttributeOverride(
- *          name="emailCanonical", 
- *          column=@ORM\Column(type="string", name="email_canonical", length=255, unique=true, nullable=true))
- * })
+ * @UniqueEntity(fields="phone", message="Такой телефон уже зарегистрирован")
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @var integer
      * @ORM\Id
@@ -27,13 +21,16 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * Phone number
      * @var string
      * @ORM\Column(name="phone", type="string", length=11)
      * @Assert\NotNull()
-     * @Assert\Length(min=11, minMessage="Некорректный мобильный номер. Например +7(925)123-45-67")
+     * @Assert\Length(
+     *      min=11,
+     *      minMessage="Некорректный мобильный номер. Например +7(925)123-45-67"
+     * )
      */
     private $phone;
 
@@ -52,10 +49,10 @@ class User extends BaseUser
         $this->phone = self::cleanPhone($phone);
         $this->username = $this->phone;
         $this->usernameCanonical = $this->phone;
-        
+
         return $this;
     }
-    
+
     /**
      * Get phone
      * @return string
@@ -64,17 +61,17 @@ class User extends BaseUser
     {
         return $this->phone;
     }
-    
+
     /**
      * Set username
-     * @param string $phone
+     * @param string $username
      * @return \AG\Bundle\UserBundle\Entity\User
      */
     public function setUsername($username)
     {
         $this->username = self::cleanPhone($username);
         $this->phone = $this->username;
-        
+
         return $this;
     }
 
@@ -85,6 +82,7 @@ class User extends BaseUser
      */
     public static function cleanPhone($phone)
     {
-        return  preg_replace('/[^0-9]/', '', $phone);
+        return preg_replace('/[^0-9]/', '', $phone);
     }
+
 }

@@ -1,0 +1,19 @@
+@import "000-variables.less";
+
+.ag-show-hide.ng-hide-add, .ag-show-hide.ng-hide-remove {
+    -webkit-transition:all linear @show-hide-opacity-time;
+    -moz-transition:all linear @show-hide-opacity-time;
+    -o-transition:all linear @show-hide-opacity-time;
+    transition:all linear @show-hide-opacity-time;
+    display:block!important;
+  }
+ 
+  .ag-show-hide.ng-hide-add.ng-hide-add-active,
+  .ag-show-hide.ng-hide-remove {
+    opacity:0;
+  }
+ 
+  .ag-show-hide.ng-hide-add,
+  .ag-show-hide.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+  }

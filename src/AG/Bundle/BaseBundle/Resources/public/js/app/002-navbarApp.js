@@ -2,9 +2,9 @@
 navbarApp.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
     'use strict';
 
-    $scope.processForm = function () {
+    $scope.processLoginForm = function () {
 
-        $scope.loading = true;
+        $scope.loading.login = true;
 
         $http({
             method: 'POST',
@@ -13,14 +13,21 @@ navbarApp.controller('LoginController', ['$scope', '$http', function ($scope, $h
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function (data) {
 
-            $scope.loading = false;
+            $scope.loading.login = false;
 
             if (data.success) {
                 window.location.href = data.path;
             } else {
+                $scope.success = false;
                 $scope.error = data.message;
             }
         });
+    };
+    $scope.processResetForm = function () {
+
+        $scope.error = false;
+        $scope.success = 'Новый пароль выслан вам';
+        $scope.form.password = false;
     };
 }]);
 
