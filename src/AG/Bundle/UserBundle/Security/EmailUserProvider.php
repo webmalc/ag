@@ -3,7 +3,7 @@
 namespace AG\Bundle\UserBundle\Security;
 
 use FOS\UserBundle\Security\EmailUserProvider as Base;
-use AG\Bundle\UserBundle\Entity\User;
+use AG\Bundle\UserBundle\Document\User;
 
 class EmailUserProvider extends Base
 {
@@ -14,7 +14,7 @@ class EmailUserProvider extends Base
     {
         $user = parent::findUser($username);
         if ($user == null) {
-            return parent::findUser(User::cleanPhone($username));
+            return $this->userManager->findUserBy(['phone' => User::cleanPhone($username)]);
         }
         return $user;
     }

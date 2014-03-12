@@ -19,9 +19,9 @@ class CreateUserCommand extends Base
             ->setName('ag:user:create')
             ->setDescription('Create a user.')
             ->setDefinition(array(
-                new InputArgument('username', InputArgument::REQUIRED, 'The phone'),
-                new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputArgument('email', InputArgument::REQUIRED, 'The email'),
+                new InputArgument('username', InputArgument::REQUIRED, 'The username'),
+                new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputOption('super-admin', null, InputOption::VALUE_NONE, 'Set the user as super admin'),
                 new InputOption('inactive', null, InputOption::VALUE_NONE, 'Set the user as inactive'), 
             ))
@@ -53,21 +53,6 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (!$input->getArgument('username')) {
-            $username = $this->getHelper('dialog')->askAndValidate(
-                $output,
-                'Please choose a phone:',
-                function($username) {
-                    if (empty($username)) {
-                        throw new \Exception('Phone can not be empty');
-                    }
-
-                    return $username;
-                }
-            );
-            $input->setArgument('username', $username);
-        }
-
         if (!$input->getArgument('email')) {
             $email = $this->getHelper('dialog')->askAndValidate(
                 $output,
@@ -81,6 +66,7 @@ EOT
                 }
             );
             $input->setArgument('email', $email);
+            $input->setArgument('username', $email);
         }
 
         if (!$input->getArgument('password')) {

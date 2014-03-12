@@ -18,6 +18,12 @@ class UserController extends Controller
      */
     public function indexAction($name)
     {
+        $manager = $this->get('doctrine_mongodb')->getManager();
+        $user = $this->getUser();
+        $user->setPhone('8 925 317-28-78');
+        //$manager->persist($user);
+        //$manager->flush();
+        
         return array('name' => $name);
     }
 }
