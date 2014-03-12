@@ -3,29 +3,44 @@
 namespace AG\Bundle\UserBundle\Document;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableDocument;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableDocument;
 
 /**
- * @MongoDB\Document(collection="Users")
+ * @ODM\Document(collection="Users")
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  * @UniqueEntity(fields="phone", message="Такой телефон уже зарегистрирован")
  */
 class User extends BaseUser {
 
     /**
      * @var string
-     * @MongoDB\Id
+     * @ODM\Id
      */
     protected $id;
+    
+    /**
+     * Hook timestampable behavior
+     * updates createdAt, updatedAt fields
+     */
+    use TimestampableDocument;
+    
+    /**
+     * Hook SoftDeleteable behavior
+     * deletedAt field
+     */
+    use SoftDeleteableDocument;
 
     /**
      * Phone number
      * @var string
      * @Gedmo\Versioned
-     * @MongoDB\String(name="phone", type="string") @MongoDB\UniqueIndex(order="asc", sparse=true)
+     * @ODM\String(name="phone", type="string") @ODM\UniqueIndex(order="asc", sparse=true)
      * @Assert\NotNull()
      * @Assert\Length(
      *      min=11,
