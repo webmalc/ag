@@ -31,7 +31,7 @@ class User extends BaseUser {
     use TimestampableDocument;
     
     /**
-     * Hook SoftDeleteable behavior
+     * Hook softdeleteable behavior
      * deletedAt field
      */
     use SoftDeleteableDocument;

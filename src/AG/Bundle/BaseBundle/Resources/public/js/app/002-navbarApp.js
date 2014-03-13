@@ -1,6 +1,11 @@
 /*global navbarApp, Routing, window*/
-navbarApp.controller('LoginController', ['$scope', '$http', function ($scope, $http) {
+navbarApp.controller('LoginController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
     'use strict';
+
+    $scope.clearAlerts = function () {
+        $scope.success = '';
+        $scope.error = '';
+    };
 
     $scope.processLoginForm = function () {
 
@@ -18,16 +23,31 @@ navbarApp.controller('LoginController', ['$scope', '$http', function ($scope, $h
             if (data.success) {
                 window.location.href = data.path;
             } else {
-                $scope.success = false;
-                $scope.error = data.message;
+                $scope.clearAlerts();
+                $scope.error = 'Упс! ' + data.message;
             }
         });
     };
     $scope.processResetForm = function () {
 
-        $scope.error = false;
-        $scope.success = 'Новый пароль выслан вам';
-        $scope.form.password = false;
+        $scope.loading.password = true;
+
+        $http.post(Routing.generate('password_resseting_request'), $scope.remind)
+             .success(function (data) {
+                
+                $scope.loading.password = false;
+                if (data.success) {
+                    $scope.clearAlerts()
+                    $scope.success = 'Ура! ' + data.message;
+                    $scope.form.password = false;
+                    $timeout(function () { $scope.clearAlerts(); }, 10000);
+                } else {
+                    $scope.clearAlerts();
+                    $scope.error = 'Упс! ' + data.message;
+                }
+             });
+        
+        
     };
 }]);
 

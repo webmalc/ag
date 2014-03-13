@@ -10,7 +10,7 @@ class EmailUserProvider extends Base
     /**
      * {@inheritDoc}
      */
-    protected function findUser($username)
+    public function findUser($username)
     {
         $user = parent::findUser($username);
         if ($user == null) {

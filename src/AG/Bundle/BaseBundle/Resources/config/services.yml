@@ -1,0 +1,11 @@
+services:
+    ag.messanger.providers.email:
+        class:  AG\Bundle\BaseBundle\Lib\Messanger\Providers\EmailProvider
+        arguments:  ["@mailer", "@twig"]
+        
+    ag.messanger.providers.sms:
+        class:  AG\Bundle\BaseBundle\Lib\Messanger\Providers\SmsProvider
+        
+    ag.service.messanger:
+        class:  AG\Bundle\BaseBundle\Lib\Messanger\MessangerService
+        arguments:  ["@service_container"]

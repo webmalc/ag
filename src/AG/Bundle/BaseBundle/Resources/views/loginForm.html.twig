@@ -1,15 +1,17 @@
 <!-- login form -->
 <div ng-controller="LoginController">
+
     <div class="alert alert-danger ag-show-hide" ng-cloak ng-show="error">
-        Упс! {[{error}]}
+        {[{error}]}
     </div>
-    
-    <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
-        Ура! {[{success}]}
-    </div>
-    
+
     <form ng-init="form.password = false" ng-show="!form.password" name="login_form" class="form login-form ag-show-hide" ng-submit="processLoginForm()" role="form" method="post" accept-charset="UTF-8">
 
+        <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
+            <button type="button" class="close" aria-hidden="true" ng-click="success = ''">&times;</button>
+            {[{success}]}
+        </div>
+        
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input type="text" name="_username" ng-model="login._username" class="form-control" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required value="">
@@ -24,7 +26,7 @@
                 <label><input type="checkbox" name="_remember_me" ng-model="login._remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
                 </div>
                 <div class="col-xs-8 text-right">
-                    <a href ng-click="form.password = true; error = false">забыл пароль</a>
+                    <a href ng-click="form.password = true; error = ''">забыл пароль</a>
                 </div>
             </div>
         </div>
@@ -48,7 +50,7 @@
         <div class="checkbox">
             <div class="row">
                 <div class="col-xs-12 text-right">
-                    <a href ng-click="form.password = false; error = false">отмена</a>
+                    <a href ng-click="form.password = false; error = ''">отмена</a>
                 </div>
             </div>
         </div>
