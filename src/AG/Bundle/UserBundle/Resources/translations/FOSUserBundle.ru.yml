@@ -1,98 +1,47 @@
-# Group
-group:
-    edit:
-        submit: Обновить группу
-    show:
-        name: Название группы
-    new:
-        submit: Создать группу
-    flash:
-        updated: Группа обновлена
-        created: Группа создана
-        deleted: Группа удалена
-
-# Security
-"Bad credentials": Что-то неправильно
-"User account is disabled.": Вы заблокированы
-"User account is locked.": Вы заблокированы
-
-security:
-    login:
-        username: "телефон или e-mail"
-        password: "пароль"
-        remember_me: запомнить?
-        submit: Войти
-
-# Profile
-profile:
-    show:
-        username: Имя пользователя
-        email: Электронная почта
-    edit:
-        submit: Обновить
-    flash:
-        updated: Профиль пользователя обновлен
-
-# Password change
-change_password:
-    submit: Изменить пароль
-    flash:
-        success: Пароль изменен
-
-# Registration
-registration:
-    check_email: Письмо отправлено на адрес %email%. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.
-    confirmed: Поздравляем %username%, ваш аккаунт подтвержден.
-    back: Вернуться на предыдущую страницу.
-    submit: Регистрация
-    flash:
-        user_created: Пользователь успешно создан
-    email:
-        subject: Добро пожаловать, %username%!
-        message: |
-            Приветствуем, %username%!
-
-            Для подтверждения вашей регистрации, пройдите по ссылке %confirmationUrl%
-
-            С наилучшими пожеланиями,
-            команда сайта.
-
-# Password resetting
-resetting:
-    password_already_requested: Пароль для данного пользователя уже запрашивался за последние 24 часа.
-    check_email: Письмо на адрес %email% уже отправлено. Оно содержит ссылку, при переходе по которой ваш пароль будет сброшен.
-    request:
-        invalid_username: Пользователь "%username%" не существует.
-        username: "Имя пользователя:"
-        submit: Сбросить пароль
-    reset:
-        submit: Изменить пароль
-    flash:
-        success: Пароль успешно сброшен
-    email:
-        subject: Сброс пароля
-        message: |
-            Приветствуем, %username%!
-
-            Для сброса пароля, пожалуйста, пройдите по ссылке %confirmationUrl%
-
-            С наилучшими пожеланиями,
-            команда сайта.
-
-# Global strings
-layout:
-    logout: Выйти
-    login: Войти
-    register: Регистрация
-    logged_in_as: Привет, %username%
-
-# Form field labels
-form:
-    group_name: "Название группы:"
-    username: "логин"
-    email: "email@example.ru"
-    current_password: "Текущий пароль:"
-    password: "Пароль:"
-    password_confirmation: "Подтвердите пароль:"
-    new_password: "Новый пароль:"
-    new_password_confirmation: "Подтвердите пароль:"
+'Bad credentials': 'Что-то неправильно'
+'User account is disabled.': 'Вы заблокированы'
+'User account is locked.': 'Вы заблокированы'
+group.edit.submit: 'Обновить группу'
+group.show.name: 'Название группы'
+group.new.submit: 'Создать группу'
+group.flash.updated: 'Группа обновлена'
+group.flash.created: 'Группа создана'
+group.flash.deleted: 'Группа удалена'
+security.login.username: 'телефон или e-mail'
+security.login.password: пароль
+security.login.remember_me: 'запомнить?'
+security.login.submit: Войти
+profile.show.username: 'Имя пользователя'
+profile.show.email: 'Электронная почта'
+profile.edit.submit: Обновить
+profile.flash.updated: 'Профиль пользователя обновлен'
+change_password.submit: 'Изменить пароль'
+change_password.flash.success: 'Пароль изменен'
+registration.check_email: 'Письмо отправлено на адрес %email%. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.'
+registration.confirmed: 'Поздравляем %username%, ваш аккаунт подтвержден.'
+registration.back: 'Вернуться на предыдущую страницу.'
+registration.submit: Регистрация
+registration.flash.user_created: 'Пользователь успешно создан'
+registration.email.subject: 'Добро пожаловать, %username%!'
+registration.email.message: "Приветствуем, %username%!\n\nДля подтверждения вашей регистрации, пройдите по ссылке %confirmationUrl%\n\nС наилучшими пожеланиями,\nкоманда сайта.\n"
+resetting.password_already_requested: 'Пароль для данного пользователя уже запрашивался за последние 24 часа.'
+resetting.check_email: 'Письмо на адрес %email% уже отправлено. Оно содержит ссылку, при переходе по которой ваш пароль будет сброшен.'
+resetting.request.invalid_username: 'Пользователь "%username%" не существует.'
+resetting.request.username: 'Имя пользователя:'
+resetting.request.submit: 'Сбросить пароль'
+resetting.reset.submit: 'Изменить пароль'
+resetting.flash.success: 'Пароль успешно сброшен'
+resetting.email.subject: 'Сброс пароля'
+resetting.email.message: "Приветствуем, %username%!\n\nДля сброса пароля, пожалуйста, пройдите по ссылке %confirmationUrl%\n\nС наилучшими пожеланиями,\nкоманда сайта.\n"
+layout.logout: Выйти
+layout.login: Войти
+layout.register: Регистрация
+layout.logged_in_as: 'Привет, %username%'
+form.group_name: 'Название группы:'
+form.username: логин
+form.email: email@example.ru
+form.current_password: 'Текущий пароль:'
+form.password: 'Пароль:'
+form.password_confirmation: 'Подтвердите пароль:'
+form.new_password: 'Новый пароль:'
+form.new_password_confirmation: 'Подтвердите пароль:'

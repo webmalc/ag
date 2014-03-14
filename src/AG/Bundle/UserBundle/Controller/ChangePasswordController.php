@@ -23,31 +23,46 @@ class ChangePasswordController extends Controller
     {
         $data = json_decode($request->getContent(), true);
         $response = new JsonResponse();
+        $translator = $this->container->get('translator');
+        
         $response->setData([
             'success' => false,
-            'message' => 'Что-то неправильно'
+            'message' => $translator->trans('remind_password.error', [], 'AGUserBundle')
         ]);
         
+        /* Get request username */
         if (empty($data['_username'])) {
             return $response;
         }
         
+        /* Get user form database */
+        /* @var $user \AG\Bundle\UserBundle\Document\User */
         $user = $this->container
                      ->get('ag.user_provider.username_email')
                      ->findUser($data['_username']);
-        
         if (!$user) {
             return $response;
         }
-        
-        $message = ['content' => 'Ваш новый пароль: 123456'];
-        $messanger = $this->container->get('ag.service.messanger');
-        $result = $messanger->send($user, $message, 'Смена пароля', true);
 
-        $response->setData([
-            'success' => true,
-            'message' => 'Новый пароль выслан вам'
-        ]);
+        /* Save user */
+        $password = $this->get('ag.helper')->getToken(6, true, 'lud');
+        $user->setPlainPassword($password);
+        $this->container->get('fos_user.user_manager')->updateUser($user);
+        
+        /* Send messages */
+        $message = ['content' => $translator->trans('remind_password.message', ['%password%' => $password], 'AGUserBundle')];
+        $messanger = $this->container->get('ag.service.messanger');
+        $result = $messanger->send($user, $message, $translator->trans('remind_password.message_subject', [], 'AGUserBundle'), true);
+        
+        foreach ($result as $entry) {
+            if ($entry['success']) {
+                $response->setData([
+                    'success' => true,
+                    'message' => $translator->trans('remind_password.success', [], 'AGUserBundle')
+                ]);
+                break;
+            }
+        }
         
         return $response;
     }

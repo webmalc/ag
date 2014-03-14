@@ -1,4 +1,7 @@
 services:
+    ag.helper:
+        class:  AG\Bundle\BaseBundle\Lib\Helper
+        
     ag.messanger.providers.email:
         class:  AG\Bundle\BaseBundle\Lib\Messanger\Providers\EmailProvider
         arguments:  ["@mailer", "@twig"]

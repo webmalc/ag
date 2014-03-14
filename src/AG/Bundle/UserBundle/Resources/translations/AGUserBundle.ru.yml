@@ -1,0 +1,4 @@
+remind_password.message_subject: 'Смена пароля'
+remind_password.message: 'Ваш новый пароль: %password%'
+remind_password.success: 'Новый пароль выслан вам'
+remind_password.error: 'Что-то неправильно'
