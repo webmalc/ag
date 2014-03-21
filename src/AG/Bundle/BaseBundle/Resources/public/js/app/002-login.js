@@ -1,12 +1,18 @@
-/*global navbarApp, Routing, window*/
-navbarApp.controller('LoginController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+/*global navbar, Routing, window*/
+navbar.controller('LoginController', ['$scope', '$http', '$timeout', '$location', function ($scope, $http, $timeout, $location) {
     'use strict';
+
+    var email = $location.search().email;
 
     // Browser remeber login/password bug fix
     $scope.login = {
         _username: $('input[name="_username"]').val(),
         _password: $('input[name="_password"]').val()
     };
+    
+    if (email) {
+        $scope.login._username = email;
+    }
 
     $scope.clearAlerts = function () {
         $scope.success = '';

@@ -8,6 +8,7 @@ services:
         
     ag.messanger.providers.sms:
         class:  AG\Bundle\BaseBundle\Lib\Messanger\Providers\SmsProvider
+        arguments:  ["@kernel"]
         
     ag.service.messanger:
         class:  AG\Bundle\BaseBundle\Lib\Messanger\MessangerService

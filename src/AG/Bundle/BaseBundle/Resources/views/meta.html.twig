@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="{% block meta_keywordsn %}AutoGRU{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}AutoGRU{% endblock %}">
         <meta name="author" content="webmalc">
         <meta name="description" content="{% block meta_description %}AutoGRU project{% endblock %}">
         <title>{% block meta_title %}AutoGRU{% endblock %}</title>
@@ -37,6 +37,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
             
             {% if app.environment == 'dev' %}
@@ -46,6 +47,7 @@
                 {% javascripts filter='uglifyjs2'
                     '@AGBaseBundle/Resources/public/js/autofill-event.js'
                     '@AGBaseBundle/Resources/public/js/app/directives/*'
+                    '@AGBaseBundle/Resources/public/js/app/services/*'
                     '@AGBaseBundle/Resources/public/js/app/*'
                 %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -58,6 +60,7 @@
                         'bundles/fosjsrouting/js/router.js'
                         'js/fos_js_routes.js'
                         '@AGBaseBundle/Resources/public/js/app/directives/*'
+                        '@AGBaseBundle/Resources/public/js/app/services/*'
                         '@AGBaseBundle/Resources/public/js/app/*'
                     %}
                     <script type="text/javascript" src="{{ asset_url }}"></script>

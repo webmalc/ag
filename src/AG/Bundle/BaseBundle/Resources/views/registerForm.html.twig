@@ -1,0 +1,26 @@
+<!-- login form -->
+<div ng-controller="RegisterController">
+
+    <div class="alert alert-danger ag-show-hide" ng-cloak ng-show="error">
+        {[{error}]}
+    </div>
+
+    <form name="registerForm" class="form register-form" ng-submit="processRegisterForm()" role="form" method="post" accept-charset="UTF-8">
+
+        <div class="form-group">
+            <div class="input-group"  ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$dirty }">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" name="email" ng-model="email" class="form-control" placeholder="{{ 'register.form.email.placeholder'|trans({}, 'AGUserBundle') }}" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" ng-disabled="registerForm.$invalid" name="_submit" class="btn btn-success btn-block">
+                <span ng-cloak ng-init="loading = false" ng-show="loading"><i class="fa fa-spinner fa-spin fa-lg"></i> </span>
+                {{ 'register.form.submit'|trans({}, 'AGUserBundle') }}
+            </button>
+        </div>
+        
+        <input type="hidden" name="_csrf_token" value="{[{login._csrf_token}]}" ng-init="login._csrf_token='{{ fos_csrf_provider.generateCsrfToken('authenticate') }}'" />
+    </form>
+</div>

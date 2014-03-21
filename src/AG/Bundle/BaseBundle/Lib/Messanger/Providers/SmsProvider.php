@@ -7,28 +7,27 @@ namespace AG\Bundle\BaseBundle\Lib\Messanger\Providers;
  */
 class SmsProvider extends AbstractProvider
 {
-    //http://atompark.com/api/sms/3.0/sendSMS?key=public_key&sum=control_sum&sender=Info&text=Testing%20SMS&phone=380972920383&datetime=&sms_lifetime=0
-    
+
     /**
      * Name of provider
      */
     const NAME = 'sms';
-    
+
     /**
      * Service url
      */
     const URL = 'http://atompark.com/api/sms/';
-    
+
     /**
      * Service version
      */
     const VERSION = '3.0';
-    
+
     /**
      * Service action
      */
     const ACTION = 'sendSMS';
-    
+
     /**
      * Sender Id
      */
@@ -38,7 +37,7 @@ class SmsProvider extends AbstractProvider
      * Service private key
      */
     const PRIVATE_KEY = '9ac07c0f63100fd3ca6c7823d537c666';
-    
+
     /**
      * Service public key
      */
@@ -48,12 +47,7 @@ class SmsProvider extends AbstractProvider
      * SMS max length
      */
     const CROP = 70;
-    
-    /**
-     * Test mode on/off
-     */
-    const TEST = true;
-    
+
     /**
      * Crop sms or not
      * @var boolean
@@ -61,19 +55,29 @@ class SmsProvider extends AbstractProvider
     private $crop = true;
 
     /**
+     * @var \AppKernel 
+     */
+    private $kernel;
+
+    public function __construct(\AppKernel $kernel)
+    {
+        $this->kernel = $kernel;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getText()
     {
         $text = $this->getSubject() . '. ' . $this->getData()['content'];
-        
+
         if ($this->crop) {
             $text = mb_substr($text, 0, self::CROP - mb_strlen(self::SENDER, 'UTF-8') - 1, 'UTF-8');
         }
-        
+
         return $text;
     }
-    
+
     /**
      * @param boolean $crop
      * @return \AG\Bundle\BaseBundle\Lib\Messanger\Providers\SmsProvider
@@ -81,7 +85,7 @@ class SmsProvider extends AbstractProvider
     public function setCrop($crop)
     {
         $this->crop = (empty($crop)) ? false : true;
-        
+
         return $this;
     }
 
@@ -91,11 +95,11 @@ class SmsProvider extends AbstractProvider
     public function send()
     {
         parent::send();
-        
+
         $result = $this->execCommad();
-        
+
         if (!isset($result['result']) || $result['result'] == 'false') {
-            if(isset($result['error'])) {
+            if (isset($result['error'])) {
                 throw new \Exception($result['error'], $result['code']);
             } else {
                 throw new \Exception('Ошибка отправки смс');
@@ -104,7 +108,7 @@ class SmsProvider extends AbstractProvider
 
         return true;
     }
-    
+
     /**
      * Send curl request
      * @return string[]|boolean
@@ -113,34 +117,34 @@ class SmsProvider extends AbstractProvider
     public function execCommad()
     {
         $params = [
-            'key'          => self::PUBLIC_KEY,
-            'datetime'     => '',
+            'key' => self::PUBLIC_KEY,
+            'datetime' => '',
             'sms_lifetime' => 1,
-            'sender'       => self::SENDER,
-            'phone'        => $this->getRecipient(),
-            'text'         => $this->getText()
+            'sender' => self::SENDER,
+            'phone' => $this->getRecipient(),
+            'text' => $this->getText()
         ];
-        
-        if (self::TEST) {
+
+        if ($this->kernel->getEnvironment() != 'prod') {
             $params['test'] = 1;
         }
-        
+
         $params['sum'] = $this->getControlSum($params);
-        
+
         $curl = curl_init();
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($curl, CURLOPT_POST, 1);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-	curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-	curl_setopt($curl, CURLOPT_URL, self::URL . self::VERSION . '/' . self::ACTION);
-	$result = curl_exec($curl);
-        
-	if(curl_errno($curl)) {
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_URL, self::URL . self::VERSION . '/' . self::ACTION);
+        $result = curl_exec($curl);
+
+        if (curl_errno($curl)) {
             throw new \Exception(curl_error($curl), curl_errno($curl));
         }
         return json_decode($result, true);
     }
-    
+
     /**
      * Calculate control sum
      * @param string[] $params

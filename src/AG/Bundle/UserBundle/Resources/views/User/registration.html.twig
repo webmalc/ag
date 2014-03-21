@@ -1,19 +1,17 @@
 {% extends 'AGUserBundle::base.html.twig' %}
 
-{% trans_default_domain 'FOSUserBundle' %}
-
 {% block content %}
     
     <div class="row">
         <div class="col-lg-4 col-lg-offset-4 ">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Войти</h3>
+                    <h3 class="panel-title">Регистрация</h3>
                 </div>
                 <div class="panel-body">
-                    {% include 'AGBaseBundle::loginForm.html.twig' %}
+                    {% include 'AGBaseBundle::registerForm.html.twig' %}
                     <hr>
-                    {% include 'AGBaseBundle::ulogin.html.twig' with {'uloginId': 'ulogin-page-login'}  %}
+                    {% include 'AGBaseBundle::ulogin.html.twig' with {'uloginId': 'ulogin-page-register'}  %}
                 </div>
             </div>
         </div>

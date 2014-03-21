@@ -5,7 +5,12 @@
     {% block top_navbar %}
         {% include 'AGBaseBundle::topNavbar.html.twig' %}
     {% endblock %}
+
     <div class="container main-container">
+        {% block messages %}
+            {% include 'AGBaseBundle::messages.html.twig' %}
+        {% endblock %}
+        
         {% block content %}{% endblock %}
     </div>
 {% endblock %}

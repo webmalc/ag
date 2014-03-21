@@ -1,10 +1,13 @@
-var navbarApp = angular.module('navbarApp', []);
+var navbar = angular.module('navbar', []);
+var messages = angular.module('messages', []);
 
 angular.module('agApp', [
     'ui.bootstrap',
     'ngAnimate',
     'ag.directives.dropdown',
-    'navbarApp'
+    'ag.services.user',
+    'navbar',
+    'messages'
 ]).config(['$httpProvider', '$interpolateProvider', function ($httpProvider, $interpolateProvider) {
     'use strict';
 

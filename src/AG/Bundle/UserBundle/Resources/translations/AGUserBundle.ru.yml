@@ -1,4 +1,13 @@
+# Remind password
 remind_password.message_subject: 'Смена пароля'
 remind_password.message: 'Ваш новый пароль: %password%'
 remind_password.success: 'Новый пароль выслан вам'
 remind_password.error: 'Что-то неправильно'
+
+# Register
+register.form.email.placeholder: 'email@example.com'
+register.form.submit: 'Зарегистрироваться'
+register.error: 'Не получилось зарегистрироваться'
+register.message_subject: 'Регистрация'
+register.message: 'Ваш пароль: %password%'
+register.success: 'Ура! Регистрация прошла успешно. Пароль выслан вам на e-mail'

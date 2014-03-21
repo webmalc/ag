@@ -1,0 +1,12 @@
+{% for key in  app.session.flashbag.keys()%}
+    {% for message in app.session.flashbag.get(key) %}
+        <div class="row" ng-controller="MessagesController">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                <div class="alert alert-{{key}} ag-show-hide" ng-show="!message.{{loop.index}}">
+                    <button type="button" class="close" data-dismiss="alert" ng-click="message.{{loop.index}} = true">×</button>
+                    {{ message|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}

@@ -5,7 +5,7 @@ namespace AG\Bundle\UserBundle\Document;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique as MongoDBUnique;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableDocument;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableDocument;
@@ -14,7 +14,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableDocument;
  * @ODM\Document(collection="Users")
  * @Gedmo\Loggable
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
- * @UniqueEntity(fields="phone", message="Такой телефон уже зарегистрирован")
+ * @MongoDBUnique(fields="phone", message="Такой телефон уже зарегистрирован")
+ * @MongoDBUnique(fields="email", message="Такой e-mail уже зарегистрирован")
  */
 class User extends BaseUser {
 
@@ -41,7 +42,6 @@ class User extends BaseUser {
      * @var string
      * @Gedmo\Versioned
      * @ODM\String(name="phone", type="string") @ODM\UniqueIndex(order="asc", sparse=true)
-     * @Assert\NotNull()
      * @Assert\Length(
      *      min=11,
      *      minMessage="Некорректный мобильный номер. Например +7(925)123-45-67"
@@ -62,6 +62,8 @@ class User extends BaseUser {
     {
         parent::setEmail($email);
         parent::setUsername($email);
+        
+        return $this;
     }
 
     /**

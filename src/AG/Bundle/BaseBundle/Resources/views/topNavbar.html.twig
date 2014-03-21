@@ -47,15 +47,18 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username }, 'FOSUserBundle') }} <span class="caret"></span></a>
                     <ul class="dropdown-menu" aria-labelledby="user">
-                        <li><a href="#">Мой профиль</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> Мой профиль</a></li>
                         <li class="divider"></li>
-                        <li><a href="{{ path("fos_user_security_logout") }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                        <li><a href="{{ path("fos_user_security_logout") }}"><i class="fa fa-sign-out"></i> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
                     </ul>
                 </li>
                 {% else %}
-                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
                 <li class="dropdown">
-                    <a href="http://www.jquery2dotnet.com" class="dropdown-toggle" data-toggle="dropdown">{{ 'layout.login'|trans({}, 'FOSUserBundle') }} <b class="caret"></b></a>
+                    <a href="#register" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-plus"></i> {{ 'layout.register'|trans({}, 'FOSUserBundle') }} <b class="caret"></b></a>
+                    {% include 'AGBaseBundle::registerFormPanel.html.twig' %}
+                </li>
+                <li class="dropdown">
+                    <a href="#login" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-sign-in"></i> {{ 'layout.login'|trans({}, 'FOSUserBundle') }} <b class="caret"></b></a>
                     {% include 'AGBaseBundle::loginFormPanel.html.twig' %}
                 </li>
                 {% endif %}
