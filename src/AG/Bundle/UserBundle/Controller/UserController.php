@@ -32,13 +32,12 @@ class UserController extends Controller
      */
     public function registrationAction()
     {
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
-            return $this->createNotFoundException();
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException();
         }
         
         return array();
     }
-
 
     /**
      * @Route("/new", name="rest_user_create")
@@ -46,8 +45,8 @@ class UserController extends Controller
      */
     public function createAction(Request $request)
     {
-        if( $this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY') ){
-            return $this->createNotFoundException();
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException();
         }
         
         $data = json_decode($request->getContent(), true);
@@ -66,7 +65,7 @@ class UserController extends Controller
         
         $user = new User();
         $password = $this->get('ag.helper')->getToken(6, true, 'lud');
-        
+              
         $user->setEmail(filter_var($data['email'], FILTER_SANITIZE_EMAIL))
              ->setPlainPassword($password)
              ->setEnabled(true)
@@ -83,7 +82,7 @@ class UserController extends Controller
                         'success'   => false,
                         'message'   => $error->getMessage()
                     ]);
-                } 
+                }
             }
             
             return $response;
@@ -111,6 +110,28 @@ class UserController extends Controller
         return $response;
     }
     
+    /**
+     * Ulogin login
+     * @Route("/ulogin", name="ulogin")
+     * @Method("POST")
+     */
+    public function uloginAction(Request $request)
+    {
+        if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException();
+        }
+        if (empty($request->get('token'))) {
+            throw $this->createNotFoundException();
+        }
+        try {
+            $this->get('ag.user.ulogin')->auth($request->get('token'));
+            
+            return $this->redirect($this->generateUrl('home'));
+        } catch (\Exception $e) {
+            throw $this->createNotFoundException();
+        }
+    }
+
     /**
      * @Route("/", name="rest_user_list", options={"expose"=true})
      * @Method("GET")
