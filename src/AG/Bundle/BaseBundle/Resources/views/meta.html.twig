@@ -14,7 +14,7 @@
             <!-- Bootstrap -->
             <!-- default //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css-->
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/flatly/bootstrap.min.css"/>
-            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"/>
+            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
             {% stylesheets filter='cssrewrite, uglifycss' 
                 '@AGBaseBundle/Resources/public/css/app/*'
             %}
@@ -38,14 +38,14 @@
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-resource.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+            <script src="//ulogin.ru/js/ulogin.js"></script>
             
             {% if app.environment == 'dev' %}
             
                 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
                 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
                 {% javascripts filter='uglifyjs2'
-                    '@AGBaseBundle/Resources/public/js/autofill-event.js'
+                    '@AGBaseBundle/Resources/public/js/vendor/*'
                     '@AGBaseBundle/Resources/public/js/app/directives/*'
                     '@AGBaseBundle/Resources/public/js/app/services/*'
                     '@AGBaseBundle/Resources/public/js/app/*'
@@ -56,7 +56,7 @@
             {% else %}
                 
                     {% javascripts filter='uglifyjs2'
-                        '@AGBaseBundle/Resources/public/js/autofill-event.js'
+                        '@AGBaseBundle/Resources/public/js/vendor/*'
                         'bundles/fosjsrouting/js/router.js'
                         'js/fos_js_routes.js'
                         '@AGBaseBundle/Resources/public/js/app/directives/*'

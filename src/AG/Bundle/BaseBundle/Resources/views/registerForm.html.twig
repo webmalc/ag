@@ -5,7 +5,7 @@
         {[{error}]}
     </div>
 
-    <form name="registerForm" class="form register-form" ng-submit="processRegisterForm()" role="form" method="post" accept-charset="UTF-8">
+    <form stop-event="click" name="registerForm" class="form register-form" ng-submit="processRegisterForm()" role="form" method="post" accept-charset="UTF-8">
 
         <div class="form-group">
             <div class="input-group"  ng-class="{ 'has-error' : registerForm.email.$invalid && registerForm.email.$dirty }">
@@ -17,6 +17,7 @@
         <div class="form-group">
             <button type="submit" ng-disabled="registerForm.$invalid" name="_submit" class="btn btn-success btn-block">
                 <span ng-cloak ng-init="loading = false" ng-show="loading"><i class="fa fa-spinner fa-spin fa-lg"></i> </span>
+                <span ng-cloak ng-show="!loading"><i class="fa fa-check fa-lg"></i> </span>
                 {{ 'register.form.submit'|trans({}, 'AGUserBundle') }}
             </button>
         </div>

@@ -10,13 +10,56 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Change password controller
- * @Route("/resetting")
+ * @Route("/password")
  */
 class ChangePasswordController extends Controller
 {
     /**
+     * New password action
+     * @Route("/change", name="rest_password_change")
+     * @Method("POST")
+     */
+    public function newAction(Request $request)
+    {
+        if (!$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException();
+        }
+        $translator = $this->container->get('translator');
+        $data = json_decode($request->getContent(), true);
+        $user = $this->getUser();
+
+        if (empty($data['password']) || empty($user) || mb_strlen($data['password'], 'utf-8') < 6) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('new.password.error', [], 'AGUserBundle')
+            ]);
+        }
+        
+        $user->setPlainPassword($data['password']);
+
+        /* Validate user */
+        $errors = $this->get('validator')->validate($user);
+
+        if (count($errors) > 0) {
+
+            return new JsonResponse([
+                'success' => false,
+                'message' => (string) $errors
+            ]);
+        }
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $userManager->updateUser($user);
+
+        return new JsonResponse([
+                'success' => true,
+                'message' => 'Ура! Пароль успешно изменен',
+            ]);
+    }
+    
+    /**
      * Reset password action
-     * @Route("/request", name="password_resseting_request", options={"expose"=true})
+     * @Route("/reset", name="password_resseting_request", options={"expose"=true})
      * @Method("POST")
      */
     public function requestAction(Request $request)

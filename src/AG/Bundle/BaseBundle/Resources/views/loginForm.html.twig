@@ -5,7 +5,7 @@
         {[{error}]}
     </div>
 
-    <form ng-init="form.password = false" ng-show="!form.password" name="login_form" class="form login-form ag-show-hide" ng-submit="processLoginForm()" role="form" method="post" accept-charset="UTF-8">
+    <form stop-event="click" ng-init="form.password = false" ng-show="!form.password" name="login_form" class="form login-form ag-show-hide" ng-submit="processLoginForm()" role="form" method="post" accept-charset="UTF-8">
 
         <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
             <button type="button" class="close" aria-hidden="true" ng-click="success = ''">&times;</button>
@@ -33,6 +33,7 @@
         <div class="form-group">
             <button type="submit" ng-disabled="login_form.$invalid" name="_submit" class="btn btn-success btn-block">
                 <span ng-cloak ng-init="loading.login = false" ng-show="loading.login"><i class="fa fa-spinner fa-spin fa-lg"></i> </span>
+                <span ng-cloak ng-show="!loading.login"><i class="fa fa-sign-in"></i> </span>
                 {{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}
             </button>
         </div>
@@ -42,7 +43,7 @@
 
     <!-- reset password -->
 
-    <form ng-show="form.password" ng-cloak name="reset_form" class="form reset-form ag-show-hide" ng-submit="processResetForm()" >
+    <form stop-event="click" ng-show="form.password" ng-cloak name="reset_form" class="form reset-form ag-show-hide" ng-submit="processResetForm()" >
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
             <input type="text" name="_username" ng-model="remind._username" class="form-control" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required value="">
@@ -57,6 +58,7 @@
         <div class="form-group">
             <button type="submit" ng-disabled="reset_form.$invalid" name="_submit" class="btn btn-success btn-block">
                 <span ng-cloak ng-init="loading.password = false" ng-show="loading.password"><i class="fa fa-spinner fa-spin fa-lg"></i> </span>
+                <span ng-cloak ng-show="!loading.password"><i class="glyphicon glyphicon-lock"></i> </span>
                 Восстановить
             </button>
         </div>

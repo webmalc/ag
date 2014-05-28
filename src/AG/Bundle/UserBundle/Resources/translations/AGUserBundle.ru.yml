@@ -11,3 +11,13 @@ register.error: 'Не получилось зарегистрироваться'
 register.message_subject: 'Регистрация'
 register.message: 'Ваш пароль: %password%'
 register.success: 'Ура! Регистрация прошла успешно. Пароль выслан вам на e-mail'
+
+#Update
+update.error: 'Не получилось обновить пользователя'
+
+#Change password
+new.password.error: 'Не получилось сменить пароль пользователя'
+
+#Phone check
+phone_ckeck.message: '%password%'
+phone_ckeck.subject: 'Код:'

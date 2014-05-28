@@ -1,6 +1,20 @@
 {% extends 'AGBaseBundle::page.html.twig' %}
 
-{% block content %}
+{% block styles %}
     {{ parent() }}
+    
+    {% stylesheets filter='cssrewrite, uglifycss' '@AGUserBundle/Resources/public/css/*' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    
+{% endblock %}
+
+{% block scripts %}
+    {{ parent() }}
+    
+    {% javascripts filter='uglifyjs2' '@AGUserBundle/Resources/public/js/*'%}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    
 {% endblock %}
 

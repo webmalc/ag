@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">Код подтверждения</h4>
+</div>
+<form ng-cloak class="form" name="phoneConfirmationForm" role="form">
+    <div class="modal-body">
+        
+        <div class="alert alert-danger ag-show-hide" ng-cloak ng-show="input.error">
+                <button type="button" class="close" aria-hidden="true" ng-click="input.error = ''">&times;</button>
+                {[{input.error}]}
+            </div>
+        
+        <p>Введите цифры высланные вам в SMS для подтверждения номера телефона.</p>
+
+        <div class="form-group">
+            <input type="text" ng-model="input.code" class="form-control" placeholder="Введите код подтверждения" required ng-pattern="/.{6,20}/" pattern=".{6,20}" title="6 знаков минимум">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" ng-disabled="phoneConfirmationForm.$invalid" ng-click="processPhoneConfirmationForm()" class="btn btn-success">
+            <span ng-cloak ng-init="input.loadingConfirmation = false" ng-show="!input.loadingConfirmation"><i class="fa fa-check fa-lg"></i> </span>
+            <span ng-cloak ng-show="input.loadingConfirmation"><i class="fa fa-spinner fa-spin fa-lg"></i> </span>
+            Завершить
+        </button>
+        &nbsp;<button type="button" class="btn btn-default" ng-click="cancel()"><i class="fa fa-ban fa-lg"></i> Отмена</button>
+    </div>
+</form>

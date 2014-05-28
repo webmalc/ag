@@ -1,0 +1,98 @@
+<div class="container-fluid" ng-controller="ProfileController">
+
+    <div class="row top-buffer">
+        <div class="col-sm-9 col-md-9">
+            <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
+                <button type="button" class="close" aria-hidden="true" ng-click="success = ''">&times;</button>
+                {[{success}]}
+            </div>
+
+            <div class="alert alert-danger ag-show-hide" ng-cloak ng-show="error">
+                <button type="button" class="close" aria-hidden="true" ng-click="error = ''">&times;</button>
+                {[{error}]}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-2 col-md-2">
+            <a href="http://gravatar.com/emails/" id="user_gravatar_link">
+                <img src="{{ gravatar(app.user.email, 170) }}" tooltip-placement="bottom" tooltip="Поменяйте свой аватар на gravatar.com" alt="{{ app.user.username }} gravatar" class="img-rounded" style="vertical-align: middle;">
+            </a>
+        </div>
+
+        <!-- Personal info -->
+        <div class="col-sm-4 col-md-4" ng-init="changePassword = false" ng-show="!changePassword">
+
+            <form class="form inline" name="profileForm" role="form">
+                <blockquote>
+                    <div class="form-group">
+                        <input name="lastName" type="text" ng-model="user.lastName" ng-init="user.lastName = '{{ app.user.lastName }}'" maxlength="50" placeholder="Фамилия"> 
+                        <span id="user-profile-spinner" ng-cloak ng-init="spinner=false" ng-show="spinner"><i class="fa fa-spinner fa-spin"></i></span>
+                        <span id="user-profile-saved" ng-cloak ng-init="saved=false" ng-show="saved"><i class="fa fa-check text-success"></i></span>
+                    </div>
+                    <div class="form-group">
+                        <input name="firstName" type="text" ng-model="user.firstName" ng-init="user.firstName = '{{ app.user.firstName }}'" maxlength="50" placeholder="Имя">
+                    </div>
+                </blockquote>
+            </form>
+            <p><i class="fa fa-envelope"></i>&nbsp;{{ app.user.email }}</p>
+
+
+            <!-- User phone -->
+            <p>
+            <div ng-cloak ng-init="changePhone = false" ng-show="!changePhone" class="ag-show-hide">
+                <i class="fa fa-phone"></i>&nbsp;<a href="#" ng-click="changePhone = true">{% if app.user.phone %}{{app.user.phone}}{% else %}{[{ newPhone }]} {% endif %}</a>
+            </div>
+            <form ng-cloak ng-show="changePhone" class="form-inline ag-show-hide" name="phoneForm" role="form">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" ng-model="phone" focus-me="{[{changePhone}]}" class="form-control input-sm" placeholder="Введите номер телефона" required ng-pattern="/.{10,30}/" pattern=".{10,30}" title="10 знаков минимум">
+                        <span class="input-group-btn">
+                            <button type="submit" ng-disabled="phoneForm.$invalid" class="btn btn-sm btn-success" ng-click="processChangePhoneForm()">
+                                <span ng-cloak ng-init="loadingPhone = false" ng-show="!loadingPhone"><i class="fa fa-check fa-lg"></i></span>
+                                <span ng-cloak ng-show="loadingPhone"><i class="fa fa-spinner fa-spin fa-lg"></i></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                &nbsp;<button type="button" class="btn btn-sm btn-default" ng-click="changePhone = false"><i class="fa fa-ban fa-lg"></i></button>
+            </form>
+
+            </p>
+
+
+            <p><i class="fa fa-lock"></i>&nbsp;<a href="#" ng-click="changePassword = true">Изменить пароль</a></p>
+
+        </div>
+
+        <!-- Change password -->
+        <div class="col-sm-3 col-md-3" ng-cloak ng-show="changePassword">
+            <form role="form" name="changePasswordForm" ng-submit="processChangePasswordForm()" class="form">
+                <div class="form-group">
+                    <div class="input-group" ng-class="{ 'has-error' : changePasswordForm.password.$invalid && changePasswordForm.password.$dirty }">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input id="password" focus-me="{[{changePassword}]}" type="password" name="password" ng-model="password" class="form-control" placeholder="новый пароль" required ng-pattern="/.{6,50}/" pattern=".{6,50}" title="6 знаков минимум">
+                    </div>
+                    <div id="password-strength-wrapper"><small>Сложность пароля</small> <ul id="password-strength" check-strength="password"></ul></div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group" ng-class="{ 'has-error' : changePasswordForm.retypePassword.$invalid && changePasswordForm.retypePassword.$dirty }">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" name="retypePassword" pw-check="password" ng-model="retypePassword" class="form-control" placeholder="пароль еще раз" required ng-pattern="/.{6,50}/" pattern=".{6,50}" title="6 знаков минимум">
+                    </div>
+                </div>
+
+                <div class="btn-list">
+                    <button type="submit" ng-disabled="changePasswordForm.$invalid" class="btn btn-success">
+                        <span ng-cloak ng-init="loadingPassword = false" ng-show="loadingPassword"><i class="fa fa-spinner fa-spin fa-lg"></i></span>
+                        <span ng-cloak ng-show="!loadingPassword"><i class="fa fa-check fa-lg"></i></span> Сохранить
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="changePassword = false"><i class="fa fa-ban fa-lg"></i> Отмена</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

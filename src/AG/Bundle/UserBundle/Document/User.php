@@ -171,7 +171,16 @@ class User extends BaseUser
      */
     public static function cleanPhone($phone)
     {
-        return preg_replace('/[^0-9]/', '', $phone);
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+        
+        if(mb_strlen($phone) == 10) {
+            $phone = '7' . $phone;
+        }
+        if($phone[0] == 8) {
+            $phone[0] = '7';
+        }
+        
+        return $phone;
     }
 
     /**
@@ -344,5 +353,26 @@ class User extends BaseUser
     public function getSocials()
     {
         return $this->socials;
+    }
+    
+    /**
+     * Return user full name
+     * @param boolean $full
+     * @return string
+     */
+    public function getFullName($full = false)
+    {
+        $username = $this->email;
+        
+        if (!empty($this->firstName)) {
+            
+            $username = $this->firstName;
+            
+            if (!empty($this->lastName) && $full) {
+                $username = $this->lastName . ' ' . $this->firstName;
+            }
+        }
+        
+        return $username;
     }
 }

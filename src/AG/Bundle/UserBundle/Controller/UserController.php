@@ -16,6 +16,7 @@ use AG\Bundle\UserBundle\Document\User;
  */
 class UserController extends Controller
 {
+
     /**
      * @Route("/hello/{name}")
      * @Template()
@@ -24,7 +25,7 @@ class UserController extends Controller
     {
         return array('name' => $name);
     }
-    
+
     /**
      * @Route("/registration", name="user_registration")
      * @Method("GET")
@@ -35,7 +36,7 @@ class UserController extends Controller
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createNotFoundException();
         }
-        
+
         return array();
     }
 
@@ -48,68 +49,117 @@ class UserController extends Controller
         if ($this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createNotFoundException();
         }
-        
+
         $data = json_decode($request->getContent(), true);
         $translator = $this->container->get('translator');
-        
+
         $response = new JsonResponse([
             'success' => false,
-            'message'   => $translator->trans('register.error', [], 'AGUserBundle')
+            'message' => $translator->trans('register.error', [], 'AGUserBundle')
         ]);
-        
+
         /* Get request username */
         if (empty($data['email'])) {
-            
+
             return $response;
         }
-        
+
         $user = new User();
         $password = $this->get('ag.helper')->getToken(6, true, 'lud');
-              
+
         $user->setEmail(filter_var($data['email'], FILTER_SANITIZE_EMAIL))
-             ->setPlainPassword($password)
-             ->setEnabled(true)
+                ->setPlainPassword($password)
+                ->setEnabled(true)
         ;
-        
+
         /* Validate user */
         $errors = $this->get('validator')->validate($user);
-        
+
         if (count($errors) > 0) {
 
             foreach ($errors as $error) {
                 if ($error->getPropertyPath()) {
                     $response->setData([
-                        'success'   => false,
-                        'message'   => $error->getMessage()
+                        'success' => false,
+                        'message' => $error->getMessage()
                     ]);
                 }
             }
-            
+
             return $response;
         }
-        
+
         $dm = $this->get('doctrine_mongodb')->getManager();
         $dm->persist($user);
         $dm->flush();
-        
+
         /* Send messages */
         $message = ['content' => $translator->trans('register.message', ['%password%' => $password], 'AGUserBundle')];
         $messanger = $this->container->get('ag.service.messanger');
         $messanger->send($user, $message, $translator->trans('register.message_subject', [], 'AGUserBundle'), false);
-        
+
         $response->setData([
             'success' => true,
             'message' => $user->getEmail()
         ]);
-        
+
         $this->get('session')->getFlashBag()->add(
-            'success',
-            $translator->trans('register.success', [], 'AGUserBundle')
+                'success', $translator->trans('register.success', [], 'AGUserBundle')
         );
 
         return $response;
     }
-    
+
+    /**
+     * @Route("/update", name="rest_user_update")
+     * @Method("POST")
+     */
+    public function updateAction(Request $request)
+    {
+        if (!$this->container->get('security.context')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createNotFoundException();
+        }
+        $translator = $this->container->get('translator');
+        $data = json_decode($request->getContent(), true);
+        $user = $this->getUser();
+        $allowed = ['firstName', 'lastName'];
+
+        if (empty($data) || empty($user)) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('update.error', [], 'AGUserBundle')
+            ]);
+        }
+
+        foreach ($allowed as $key) {
+            if (!key_exists($key, $data)) {
+                continue;
+            }
+            $method = 'set' . ucfirst($key);
+            $user->$method($data[$key]);
+        }
+
+        /* Validate user */
+        $errors = $this->get('validator')->validate($user);
+
+        if (count($errors) > 0) {
+
+            return new JsonResponse([
+                'success' => false,
+                'message' => (string) $errors
+            ]);
+        }
+
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm->persist($user);
+        $dm->flush();
+
+        return new JsonResponse([
+                    'success' => true,
+                    'message' => 'Пользователь успешно сохранен. Id: ' . $user->getId(),
+        ]);
+    }
+
     /**
      * Ulogin login
      * @Route("/ulogin", name="ulogin")
@@ -125,7 +175,7 @@ class UserController extends Controller
         }
         try {
             $this->get('ag.user.ulogin')->auth($request->get('token'));
-            
+
             return $this->redirect($this->generateUrl('home'));
         } catch (\Exception $e) {
             throw $this->createNotFoundException();
@@ -140,4 +190,5 @@ class UserController extends Controller
     {
         return new JsonResponse();
     }
+
 }

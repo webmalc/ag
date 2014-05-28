@@ -1,0 +1,27 @@
+{% extends 'AGUserBundle::base.html.twig' %}
+
+{% block content %}
+
+    <tabset>
+        <!-- Profile -->
+        <tab>
+            <tab-heading>
+                <i class="fa fa-user"></i> Профиль
+            </tab-heading>
+            <div class="container">
+            {% include 'AGUserBundle:Profile:userTab.html.twig' %}
+            </div>
+        </tab>
+        
+        <!-- Users -->
+        <tab>
+            <tab-heading>
+                <i class="fa fa-car"></i> Автомобили
+            </tab-heading>
+            <div class="container">
+                {% include 'AGUserBundle:Profile:autoTab.html.twig' %}
+            </div>
+        </tab>
+        
+    </tabset>
+{% endblock %}
