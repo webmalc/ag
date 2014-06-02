@@ -1,28 +1,81 @@
 {% extends 'AGCarBundle::base.html.twig' %}
 
 {% block content %}
-    
-    <div class="row text-center">
-        <div class="col-lg-6 col-lg-offset-3 ">
-            <div class="well well-sm">
-                <h3>AutoGRU <br><small>добровольная регистрация автолюбителей</small></h3>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-6 col-lg-offset-3 ">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-car"></i> Найти автовладельца</h3>
-                </div>
-                <div class="panel-body">
+    <div ng-controller="SearchController">
 
-                    {% include 'AGBaseBundle::carNumber.html.twig'  with {'icon': 'search'}  %}
-
+        <div class="row text-center">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                <div class="well well-sm">
+                    <h3>AutoGRU <br><small>добровольная регистрация автолюбителей</small></h3>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-car"></i> Найти автовладельца</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        {% include 'AGBaseBundle::carNumber.html.twig'  with {'icon': 'search'}  %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-cloak class="row" ng-show="noResults || results">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-cog"></i> Результаты поиска</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="btn-list search-results">
+
+                            <div ng-cloak ng-show="results">
+                                <p>Автомобиль найден! Отправьте сообщение:</p>
+                                <button class="btn btn-default" ng-click="sendMessage(car, 'prevent')"><i class="fa fa-frown-o"></i> Автомобиль мешает!</button>
+                                <button class="btn btn-warning" ng-click="sendMessage(car, 'danger')"><i class="fa fa-exclamation-circle"></i> Автомобиль в опасности!</button>
+                                <div class="search-results-sms">
+                                    <p>или</p>
+                                    <div class="alert alert-success"><i class="fa fa-comment-o"></i> SMS в свободной форме на номер 3498!</div>
+                                </div>
+                            </div>
+
+                            <p ng-cloak ng-show="noResults">
+                                К сожалению, мы не нашли нужный автомобиль <i class="fa fa-frown-o"></i>. 
+                                Чтобы этого не повторилось <button class="btn btn-success btn-xs" ng-click="showMessageModal()"><i class="fa fa-exclamation"></i> сообщите владельцу</button> об AutoGRU.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        <div ng-cloak ng-show="success || error || sending" class="row">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                
+                <div class="alert alert-info ag-show-hide" ng-cloak ng-show="sending">
+                    <i class="fa fa-spinner fa-spin fa-lg"></i> Отправка сообщения...
+                </div>
+                
+                <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
+                    <button type="button" class="close" aria-hidden="true" ng-click="success = ''">&times;</button>
+                    {[{success}]}
+                </div>
+
+                <div class="alert alert-danger ag-show-hide" ng-cloak ng-show="error">
+                    <button type="button" class="close" aria-hidden="true" ng-click="error = ''">&times;</button>
+                    {[{error}]}
+                </div>
+            </div>
+        </div>               
+
+
     </div>
 
 {% endblock %}

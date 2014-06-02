@@ -3,7 +3,7 @@
 {% block styles %}
     {{ parent() }}
     
-    {% stylesheets filter='cssrewrite, uglifycss' '@AGUserBundle/Resources/public/css/*' %}
+    {% stylesheets filter='cssrewrite, uglifycss' '@AGCarBundle/Resources/public/css/*' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
     
@@ -12,7 +12,7 @@
 {% block scripts %}
     {{ parent() }}
     
-    {% javascripts filter='uglifyjs2' '@AGUserBundle/Resources/public/js/*'%}
+    {% javascripts filter='uglifyjs2' '@AGCarBundle/Resources/public/js/*'%}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     

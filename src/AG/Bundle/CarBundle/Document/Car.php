@@ -126,6 +126,9 @@ class Car implements \JsonSerializable
     {
         $number = preg_replace('/[^А-Яа-я0-9]/u', '', $number);
 
+        if (empty($number)) {
+            return null;
+        }
         return mb_strtoupper($number);
     }
 

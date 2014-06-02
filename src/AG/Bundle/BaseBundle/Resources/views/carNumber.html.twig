@@ -21,7 +21,10 @@
         </div>
 
         <div class="car-number-wrapper-button">
-            <button ng-disabled="carSearchForm.$invalid" ng-click="processCarNumber()" type="submit" class="btn btn-success btn-lg"><i class="fa fa-{{icon}}"></i></button>
+            <button ng-disabled="carSearchForm.$invalid" ng-click="processCarNumber()" type="submit" class="btn btn-success btn-lg">
+                <i ng-cloak ng-show="processCarNumberButton" class="fa fa-spinner fa-spin"></i>
+                <i ng-init="processCarNumberButton = false" ng-show="!processCarNumberButton"  class="fa fa-{{icon}}"></i>
+            </button>
         </div>
         
         <div style="clear: both;"></div>

@@ -4,6 +4,7 @@ namespace AG\Bundle\BaseBundle\Lib\Messanger;
 
 use AG\Bundle\UserBundle\Document\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use AG\Bundle\UserBundle\Document\Message;
 
 /**
  * MessangerService
@@ -39,7 +40,7 @@ class MessangerService
      * @return string[]
      */
     public function send(User $user, $data = null, $subject = null, $sms = false)
-    {
+    {   
         /* Email send */
         $emailProvider = $this->container->get('ag.messanger.providers.email');
         $emailProvider->setRecipient($user->getEmail())
@@ -50,18 +51,72 @@ class MessangerService
         $this->messanger->addProvider($emailProvider);
 
         /* SMS send */
-        if ($sms && $user->getPhone()) {
+        if ($sms && $user->getPhone() && $this->checkIp()) {
             $smsProvider = $this->container->get('ag.messanger.providers.sms');
             $smsProvider->setRecipient($user->getPhone())
                     ->setSubject($subject)
                     ->setData($data)
             ;
             $this->messanger->addProvider($smsProvider);
+            
+            $this->addMessage($user, $data, $subject);
         }
 
         $result = $this->messanger->send();
 
         return $result;
+    }
+    
+    public function checkIp()
+    {
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        $message = $dm->createQueryBuilder('AGUserBundle:Message')
+            ->field('ip')->equals($this->container->get('request')->getClientIp())
+            ->sort('date', 'desc')
+            ->limit(1)
+            ->getQuery()
+            ->getSingleResult()
+        ;
+        if (!$message) {
+            return true;
+        }
+        
+        $interval = $message->getDate()->diff(new \DateTime());
+        
+        if ($interval->i < $this->container->getParameter('max.sms.interval')) {
+            return false;
+        }
+        
+        return true;
+    }
+
+
+    /**
+     * Log message sending
+     * @param \AG\Bundle\UserBundle\Document\User $user
+     * @param string[] $data
+     * @param string $subject
+     */
+    public function addMessage(User $user, $data = null, $subject = null)
+    {
+        $security = $this->container->get('security.context');
+        $dm = $this->container->get('doctrine_mongodb')->getManager();
+        
+        $message = new Message();
+        
+        $message->setDate(new \DateTime())
+                ->setMessage((empty($data['content'])) ? null : $data['content'])
+                ->setSubject($subject)
+                ->setRecipient($user)
+                ->setIp($this->container->get('request')->getClientIp())
+        ;
+        
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $message->setSender($security->getToken()->getUser());
+        }
+        
+        $dm->persist($message);
+        $dm->flush();
     }
 
     /**

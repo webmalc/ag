@@ -1,6 +1,7 @@
 var navbar = angular.module('navbar', []);
 var messages = angular.module('messages', []);
 var profile = angular.module('profile', []);
+var search = angular.module('search', []);
 
 angular.module('agApp', [
     'ui.bootstrap',
@@ -12,6 +13,7 @@ angular.module('agApp', [
     'ag.services.user',
     'navbar',
     'profile',
+    'search',
     'messages'
 ]).config(['$httpProvider', '$interpolateProvider', function ($httpProvider, $interpolateProvider) {
     'use strict';

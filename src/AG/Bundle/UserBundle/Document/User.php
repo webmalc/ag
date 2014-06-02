@@ -115,6 +115,12 @@ class User extends BaseUser
     /** @ODM\ReferenceMany(targetDocument="AG\Bundle\CarBundle\Document\Car", mappedBy="user") */
     protected $cars;
     
+    /** @ODM\ReferenceMany(targetDocument="Message", mappedBy="sender") */
+    protected $sendMessages;
+    
+    /** @ODM\ReferenceMany(targetDocument="Message", mappedBy="recipient") */
+    protected $getMessages;
+    
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
@@ -409,5 +415,65 @@ class User extends BaseUser
     public function getCars()
     {
         return $this->cars;
+    }
+
+    /**
+     * Add sendMessage
+     *
+     * @param AG\Bundle\UserBundle\Document\Message $sendMessage
+     */
+    public function addSendMessage(\AG\Bundle\UserBundle\Document\Message $sendMessage)
+    {
+        $this->sendMessages[] = $sendMessage;
+    }
+
+    /**
+     * Remove sendMessage
+     *
+     * @param AG\Bundle\UserBundle\Document\Message $sendMessage
+     */
+    public function removeSendMessage(\AG\Bundle\UserBundle\Document\Message $sendMessage)
+    {
+        $this->sendMessages->removeElement($sendMessage);
+    }
+
+    /**
+     * Get sendMessages
+     *
+     * @return Doctrine\Common\Collections\Collection $sendMessages
+     */
+    public function getSendMessages()
+    {
+        return $this->sendMessages;
+    }
+
+    /**
+     * Add getMessage
+     *
+     * @param AG\Bundle\UserBundle\Document\Message $getMessage
+     */
+    public function addGetMessage(\AG\Bundle\UserBundle\Document\Message $getMessage)
+    {
+        $this->getMessages[] = $getMessage;
+    }
+
+    /**
+     * Remove getMessage
+     *
+     * @param AG\Bundle\UserBundle\Document\Message $getMessage
+     */
+    public function removeGetMessage(\AG\Bundle\UserBundle\Document\Message $getMessage)
+    {
+        $this->getMessages->removeElement($getMessage);
+    }
+
+    /**
+     * Get getMessages
+     *
+     * @return Doctrine\Common\Collections\Collection $getMessages
+     */
+    public function getGetMessages()
+    {
+        return $this->getMessages;
     }
 }
