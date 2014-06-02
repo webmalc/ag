@@ -18,6 +18,12 @@ update.error: 'Не получилось обновить пользовател
 #Change password
 new.password.error: 'Не получилось сменить пароль пользователя'
 
-#Phone check
+#Phone check & set
 phone_ckeck.message: '%password%'
 phone_ckeck.subject: 'Код:'
+phone_set.code_error: 'Упс! Код не совпадает.'
+phone_set.main_error: 'Упс! Что-то не так.'
+phone_set.success: 'Ура! Телефон успешно сохранен.'
+
+#Navbar
+navbar.search: 'Новый поиск'

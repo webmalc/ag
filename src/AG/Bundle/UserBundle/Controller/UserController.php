@@ -16,16 +16,6 @@ use AG\Bundle\UserBundle\Document\User;
  */
 class UserController extends Controller
 {
-
-    /**
-     * @Route("/hello/{name}")
-     * @Template()
-     */
-    public function indexAction($name)
-    {
-        return array('name' => $name);
-    }
-
     /**
      * @Route("/registration", name="user_registration")
      * @Method("GET")
@@ -190,5 +180,5 @@ class UserController extends Controller
     {
         return new JsonResponse();
     }
-
+    
 }

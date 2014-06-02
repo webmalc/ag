@@ -11,7 +11,7 @@ security:
             pattern:    ^/(_profiler|_wdt|css|js)
             security:   false
         main:
-            pattern: ^/user
+            pattern: ^/
             form_login:
                 #always_use_default_target_path: true
                 default_target_path: /
@@ -41,4 +41,5 @@ security:
         - { path: ^/user/password/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_wdt, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' } 
         - { path: ^/_profiler, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
-        - { path: ^/, role: ROLE_USER }
+        - { path: ^/user, role: ROLE_USER }
+        - { path: ^/cars, role: ROLE_USER }

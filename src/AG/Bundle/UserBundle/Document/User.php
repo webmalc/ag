@@ -97,7 +97,7 @@ class User extends BaseUser
      * Phone number
      * @var string
      * @Gedmo\Versioned
-     * @ODM\String(name="phone", type="string") @ODM\UniqueIndex(order="asc", sparse=true)
+     * @ODM\String(name="phone", type="string")
      * @Assert\Length(
      *      min=11,
      *      minMessage="Некорректный мобильный номер. Например +7(925)123-45-67"
@@ -112,6 +112,9 @@ class User extends BaseUser
      */
     protected $socials = array();
 
+    /** @ODM\ReferenceMany(targetDocument="AG\Bundle\CarBundle\Document\Car", mappedBy="user") */
+    protected $cars;
+    
     /**
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
@@ -172,6 +175,8 @@ class User extends BaseUser
     public static function cleanPhone($phone)
     {
         $phone = preg_replace('/[^0-9]/', '', $phone);
+        
+        if(empty($phone)) return null;
         
         if(mb_strlen($phone) == 10) {
             $phone = '7' . $phone;
@@ -374,5 +379,35 @@ class User extends BaseUser
         }
         
         return $username;
+    }
+
+    /**
+     * Add car
+     *
+     * @param AG\Bundle\CarBundle\Document\Car $car
+     */
+    public function addCar(\AG\Bundle\CarBundle\Document\Car $car)
+    {
+        $this->cars[] = $car;
+    }
+
+    /**
+     * Remove car
+     *
+     * @param AG\Bundle\CarBundle\Document\Car $car
+     */
+    public function removeCar(\AG\Bundle\CarBundle\Document\Car $car)
+    {
+        $this->cars->removeElement($car);
+    }
+
+    /**
+     * Get cars
+     *
+     * @return Doctrine\Common\Collections\Collection $cars
+     */
+    public function getCars()
+    {
+        return $this->cars;
     }
 }

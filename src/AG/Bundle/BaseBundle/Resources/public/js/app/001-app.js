@@ -4,6 +4,7 @@ var profile = angular.module('profile', []);
 
 angular.module('agApp', [
     'ui.bootstrap',
+    'xeditable',
     'ngAnimate',
     'ag.directives.stopEvent',
     'ag.directives.password',
@@ -23,6 +24,10 @@ angular.module('agApp', [
     $interpolateProvider.
         startSymbol('{[{').
         endSymbol('}]}');
-}]);
+}]).run(function(editableOptions, editableThemes) {
+  editableThemes.bs3.inputClass = 'input-sm';
+  editableThemes.bs3.buttonsClass = 'btn-sm';
+  editableOptions.theme = 'bs3';
+});
 
 

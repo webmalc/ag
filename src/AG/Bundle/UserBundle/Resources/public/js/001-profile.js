@@ -78,7 +78,7 @@ profile.controller('ProfileController', ['$scope', '$modal', '$timeout', 'User',
                         size: 'sm'
                     });
                     phoneConfirmationModal.result.then(function(phone, message) {
-                        $scope.error = false;
+                        $scope.error = '';
                         $scope.success = message;
                         $scope.changePhone = false;
                         $scope.newPhone = phone;

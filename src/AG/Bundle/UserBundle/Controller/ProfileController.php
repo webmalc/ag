@@ -99,6 +99,8 @@ class ProfileController extends Controller
             throw $this->createNotFoundException();
         }
 
+        $translator = $this->container->get('translator');
+        
         $data = json_decode($request->getContent(), true);
 
         $session = $request->getSession();
@@ -107,7 +109,7 @@ class ProfileController extends Controller
         if (empty($data['code']) || empty($userData)) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'Упс! Что-то не так.'
+                'message' => $translator->trans('phone_set.main_error', [], 'AGUserBundle')
             ]);
         }
         
@@ -117,7 +119,7 @@ class ProfileController extends Controller
         if ($code != $userData['code'] || $user->getId() != $userData['user_id'] || empty($userData['phone'])) {
             return new JsonResponse([
                 'success' => false,
-                'message' => 'Упс! Код не совпадает.'
+                'message' => $translator->trans('phone_set.code_error', [], 'AGUserBundle')
             ]);
         }
         
@@ -128,7 +130,7 @@ class ProfileController extends Controller
         
         return new JsonResponse([
             'success' => true,
-            'message' => 'Ура! Телефон сохранен успешно',
+            'message' => $translator->trans('phone_set.success', [], 'AGUserBundle'),
             'phone' => $user->getPhone(),
         ]);
     }

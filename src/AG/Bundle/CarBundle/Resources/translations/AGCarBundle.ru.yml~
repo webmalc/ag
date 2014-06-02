@@ -1,0 +1,3 @@
+# Remind password
+delete.error: 'Упс! Не удалось удалить автомобиль.'
+delete.success: 'Ура! Автомобиль удален.'

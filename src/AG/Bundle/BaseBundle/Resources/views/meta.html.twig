@@ -15,7 +15,8 @@
             <!-- default //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css-->
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/flatly/bootstrap.min.css"/>
             <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"/>
-            {% stylesheets filter='cssrewrite, uglifycss' 
+            {% stylesheets filter='cssrewrite, uglifycss'
+                '@AGBaseBundle/Resources/public/css/vendor/*'
                 '@AGBaseBundle/Resources/public/css/app/*'
             %}
             <link rel="stylesheet" href="{{ asset_url }}"/>

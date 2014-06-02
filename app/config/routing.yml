@@ -1,8 +1,13 @@
 home:
     path:      /
-#    defaults:  { _controller: AcmeDemoBundle:Main:homepage }
+    defaults:  { _controller: AGCarBundle:Search:index }
+
+ag_car:
+    resource: "@AGCarBundle/Controller/"
+    type:     annotation
+    prefix:   /
     
-fh_user:
+ag_user:
     resource: "@AGUserBundle/Controller/"
     type:     annotation
     prefix:   /user

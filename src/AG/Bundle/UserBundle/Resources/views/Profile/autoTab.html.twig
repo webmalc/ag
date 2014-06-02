@@ -1,1 +1,95 @@
-{# empty Twig template #}
+<div class="container-fluid" ng-controller="CarsController">
+    <div class="row top-buffer ">
+        <div class="col-sm-9 col-md-9">
+
+            <div class="alert alert-warning ag-show-hide" ng-cloak ng-show="warning">
+                <button type="button" class="close" aria-hidden="true" ng-click="warning = ''">&times;</button>
+                {[{warning}]}
+            </div>
+
+            <div class="alert alert-danger ag-show-hide" ng-cloak ng-init="error = false" ng-show="error">
+                <button type="button" class="close" aria-hidden="true" ng-click="error = false">&times;</button>
+                {[{error}]}
+            </div>
+
+            <table ng-cloack class="table table-striped table-hover middle car-table">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Номер</th>
+                        <th>Марка</th>
+                        <th>Модель</th>
+                        <th style="width: 100px;">Л.с.</th>
+                        <th style="width: 100px;">Год</th>
+                        <th style="width: 100px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr ng-repeat="(key, car) in cars">
+
+                        <td>
+                            <span editable-text="car.number" e-name="number" e-form="rowform" e-required  e-min="6">
+                                {[{ car.number }]}
+                            </span>
+                        </td>
+                        <td>
+                            <span  editable-select="car.mark" e-name="mark" e-form="rowform" onshow="loadMarks()" e-ng-options="mark.text as mark.text for mark in marks">
+                                {[{ car.mark || "Нет" }]}
+                            </span>
+                        </td>
+                        <td>
+                            <span editable-text="car.model" e-name="model" e-form="rowform" onshow="loadModels()" e-typeahead="model for model in models | filter:$viewValue | limitTo:8">
+                                {[{ car.model || "Нет" }]}
+                            </span>
+                        </td>
+                        <td>
+                            <span editable-text="car.horsepower" e-name="horsepower" e-form="rowform">
+                                {[{ car.horsepower || "Нет" }]}
+                            </span>
+                        </td>
+                        <td>
+                            <span editable-select="car.year" e-name="year" e-form="rowform" e-ng-options="year.text as year.text for year in years">
+                                {[{ car.year || "Нет"}]}
+                            </span>
+                            
+                        </td>
+                        <td>
+                            <div class="btn-list" ng-show="!rowform.$visible">
+                                <button ng-click="rowform.$show()" tooltip-placement="bottom" tooltip="Редактировать автомобиль" type="button" class="btn btn-primary btn-sm">
+                                    <i ng-cloack ng-show="editing == car.id" class="fa fa-spinner fa-spin"></i>
+                                    <i ng-show="editing != car.id" class="fa fa-edit"></i>
+                                </button>
+                                <button ng-click="delete(car.id, key); " tooltip-placement="bottom" tooltip="Удалить автомобиль" type="button" class="btn btn-default btn-sm">
+                                    <i ng-cloack ng-show="deleting == car.id" class="fa fa-spinner fa-spin"></i>
+                                    <i ng-show="deleting != car.id" class="fa fa-trash-o"></i>
+                                </button>
+                            </div>
+
+                            <form ng-cloack editable-form name="rowform" onbeforesave="saveCar($data, car.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == car">
+                                <div class="btn-list">
+                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-success btn-sm">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default btn-sm">
+                                        <i class="fa fa-ban"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Add car -->
+            <div id="add-car-wrappper">
+                <a href="#" ng-cloak ng-init="showAddCarForm = false" ng-show="!showAddCarForm" ng-click="showAddCarForm = !showAddCarForm"><i class="fa fa-plus"></i> Добавить автомобиль</a>
+                <a href="#" ng-cloak ng-show="showAddCarForm" ng-click="showAddCarForm = !showAddCarForm"><i class="fa fa-ban"></i> Отмена</a>
+                <div ng-cloak ng-show="showAddCarForm" id="add-car-form-wrappper">
+                    {% include 'AGBaseBundle::carNumber.html.twig' with {'icon': 'plus'} %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
