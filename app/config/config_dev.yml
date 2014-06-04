@@ -31,8 +31,3 @@ monolog:
 
 assetic:
     use_controller: true
-
-swiftmailer:
-    transport: gmail
-    username:  webmalc@gmail.com
-    password:  sander1209

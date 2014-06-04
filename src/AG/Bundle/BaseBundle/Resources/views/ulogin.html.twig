@@ -1,7 +1,7 @@
-<!--<form class="ulogin-form">
+<!-- <form stop-event="click" class="ulogin-form">
     <div id="{{uloginId}}" data-uloginid="e25b34c2"></div>
 </form>-->
 
 <form stop-event="click" class="ulogin-form">
-<div id="{{uloginId}}" data-ulogin="display=panel;fields=first_name,last_name;providers=vkontakte,odnoklassniki,mailru,facebook;hidden=other;redirect_uri=http://autog.ru/ulogin.php"></div>
+<div id="{{uloginId}}" data-ulogin="display=panel;fields=email;verify=1;optional=first_name,last_name,nickname,bdate,sex,phone,photo,photo_big,city,country;providers=vkontakte,odnoklassniki,mailru,facebook;hidden=other;redirect_uri={{ url('ulogin') }}"></div>
 </form>

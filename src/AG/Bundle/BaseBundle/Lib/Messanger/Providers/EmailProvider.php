@@ -18,6 +18,11 @@ class EmailProvider extends AbstractProvider
     const FROM = 'robot@autog.ru';
     
     /**
+     * From name
+     */
+    const FROM_NAME = 'AutoGRU';
+    
+    /**
      * @var \Swift_Mailer 
      */
     private $mailer;
@@ -80,7 +85,7 @@ class EmailProvider extends AbstractProvider
         
         $message = \Swift_Message::newInstance();
         $message->setSubject($this->getSubject())
-                ->setFrom(self::FROM)
+                ->setFrom(self::FROM, self::FROM_NAME)
                 ->setTo($this->getRecipient())
                 ->setBody($this->getText(), 'text/html')
         ;

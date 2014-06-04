@@ -75,12 +75,13 @@ class Ulogin
     /**
      * Login user by ulogin
      * @param string $token
+     * @param string $host
      * @throws \Exception
      * @return string 
      */
-    public function auth($token)
+    public function auth($token, $host)
     {
-        $request = curl_init(self::URL . $token);
+        $request = curl_init(self::URL . $token . '&host=' . $host);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, 1);
         $result = curl_exec($request);
 

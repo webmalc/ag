@@ -164,7 +164,7 @@ class UserController extends Controller
             throw $this->createNotFoundException();
         }
         try {
-            $this->get('ag.user.ulogin')->auth($request->get('token'));
+            $this->get('ag.user.ulogin')->auth($request->get('token'), $request->server->get('HTTP_HOST'));
 
             return $this->redirect($this->generateUrl('home'));
         } catch (\Exception $e) {

@@ -31,7 +31,7 @@ class SmsProvider extends AbstractProvider
     /**
      * Sender Id
      */
-    const SENDER = 'autoGRU';
+    const SENDER = 'AutoGRU';
 
     /**
      * Service private key
@@ -69,7 +69,7 @@ class SmsProvider extends AbstractProvider
      */
     public function getText()
     {
-        $text = $this->getSubject() . '. ' . $this->getData()['content'];
+        $text = /*$this->getSubject()*/ self::SENDER . '. ' . $this->getData()['content'];
 
         if ($this->crop) {
             $text = mb_substr($text, 0, self::CROP - mb_strlen(self::SENDER, 'UTF-8') - 1, 'UTF-8');
@@ -98,7 +98,7 @@ class SmsProvider extends AbstractProvider
 
         $result = $this->execCommad();
 
-        if (!isset($result['result']) || $result['result'] == 'false') {
+        if (!isset($result['result']) || $result['result'] == 'false' || !empty($result['error'])) {
             if (isset($result['error'])) {
                 throw new \Exception($result['error'], $result['code']);
             } else {
