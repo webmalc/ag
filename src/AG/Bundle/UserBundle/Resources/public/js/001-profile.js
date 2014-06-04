@@ -69,9 +69,10 @@ profile.controller('ProfileController', ['$scope', '$modal', '$timeout', 'User',
             var user = new User({'tmpPhone': $scope.phone});
 
             user.$tmpPhone(function(response) {
+                $scope.loadingPhone = false;
+                
                 if (response.success) {
-                    $scope.loadingPhone = false;
-
+                    
                     var phoneConfirmationModal = $modal.open({
                         templateUrl: Routing.generate('user_profile_phone_modal'),
                         controller: phoneConfirmationModalController,
@@ -89,7 +90,12 @@ profile.controller('ProfileController', ['$scope', '$modal', '$timeout', 'User',
                     });
 
                 } else {
-                    $scope.error = 'Упс! Что-то пошло не так. Оновите страницу.';
+                    if(response.message) {
+                        $scope.error = response.message;
+                    } else {
+                        $scope.error = 'Упс! Что-то пошло не так. Оновите страницу.';
+                    }
+                    
                 }
             });
         };

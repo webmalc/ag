@@ -59,31 +59,52 @@ class ProfileController extends Controller
         }
 
         /* Send sms */
+        $translator = $this->container->get('translator');
         $session = $request->getSession();
         $session->remove('phone_confirmation');
-        $phone = User::cleanPhone($data['tmpPhone']);
+        $user = $this->getUser();
+        $user->setPhone($data['tmpPhone']);
         
+        $errors = $this->get('validator')->validate($user);
+
+        if (count($errors) > 0) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('phone_set.phone_error', [], 'AGUserBundle')
+            ]);
+        }
         $code = '123456789';
         
         if($this->container->getParameter("kernel.environment") == 'prod') {
             $code = rand(1000, 9999);
         }
         
-        $translator = $this->container->get('translator');
         $message = [
             'content' => $translator->trans(
                     'phone_ckeck.message', ['%code%' => $code], 'AGUserBundle')
         ];
         $messanger = $this->container->get('ag.service.messanger');
         $result = $messanger->sendSms(
-                $phone, $message, $translator->trans('phone_ckeck.subject', [], 'AGUserBundle')
+                $user->getPhone(), $message, $translator->trans('phone_ckeck.subject', [], 'AGUserBundle')
         );
         
         if (!empty($result['sms']['success'])) {
             $session->set('phone_confirmation', [
-                'phone' => $phone, 'code' => $code, 'user_id' => $this->getUser()->getId()
+                'phone' => $user->getPhone(), 'code' => $code, 'user_id' => $this->getUser()->getId()
             ]);
         }
+        
+        return new JsonResponse(['success' => true]);
+    }
+    
+    /**
+     * Clear user notifications
+     * @Route("/clear/notifications", name="user_profile_clear_notifications", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function clearNotificationsAction(Request $request)
+    {
+        $request->getSession()->set('notifications', 'clear');
         
         return new JsonResponse(['success' => true]);
     }
@@ -124,6 +145,16 @@ class ProfileController extends Controller
         }
         
         $user->setPhone($userData['phone']);
+        
+        $errors = $this->get('validator')->validate($user);
+
+        if (count($errors) > 0) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => $translator->trans('phone_set.phone_error', [], 'AGUserBundle')
+            ]);
+        }
+        
         $userManager = $this->container->get('fos_user.user_manager');
         $userManager->updateUser($user);
         $session->remove('phone_confirmation');

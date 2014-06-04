@@ -37,19 +37,22 @@
                         <div class="btn-list search-results">
 
                             <div ng-cloak ng-show="results">
+                                   
                                 <p>Автомобиль найден! Отправьте сообщение:</p>
-                                <button class="btn btn-default" ng-click="sendMessage(car, 'prevent')"><i class="fa fa-frown-o"></i> Автомобиль мешает!</button>
-                                <button class="btn btn-warning" ng-click="sendMessage(car, 'danger')"><i class="fa fa-exclamation-circle"></i> Автомобиль в опасности!</button>
+                                <button class="btn btn-default" ng-click="{% if app.user %}sendMessage(car, 'prevent'){% else %}registrationAlert(){% endif %}"><i class="fa fa-frown-o"></i> Автомобиль мешает!</button>
+                                <button class="btn btn-warning" ng-click="{% if app.user %}sendMessage(car, 'danger'){% else %}registrationAlert(){% endif %}"><i class="fa fa-exclamation-circle"></i> Автомобиль в опасности!</button>
                                 <div class="search-results-sms">
                                     <p>или</p>
                                     <div class="alert alert-success"><i class="fa fa-comment-o"></i> SMS в свободной форме на номер 3498!</div>
                                 </div>
                             </div>
 
-                            <p ng-cloak ng-show="noResults">
+                            <p ng-cloak ng-show="1 || noResults">
                                 К сожалению, мы не нашли нужный автомобиль <i class="fa fa-frown-o"></i>. 
                                 Чтобы этого не повторилось <button class="btn btn-success btn-xs" ng-click="showMessageModal()"><i class="fa fa-exclamation"></i> сообщите владельцу</button> об AutoGRU.
                             </p>
+                            <p>или</p>
+                            <a href="{{path('user_registration')}}" class="btn btn-success btn"><i class="fa fa-plus"></i> Добавить автомобиль!</a>
                         </div>
                     </div>
                 </div>

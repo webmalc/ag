@@ -54,7 +54,8 @@ profile.controller('CarsController', ['$scope', '$http', function($scope, $http)
         $scope.processCarNumber = function() {
             
             $scope.processCarNumberButton = true;
-            
+            $scope.$apply();
+
             var data = {1: $scope.num1, 2: $scope.num2, 3: $scope.num3, 4: $scope.num4};
             
             $http.post(Routing.generate('rest_user_car_create'), data).success(function(data) {

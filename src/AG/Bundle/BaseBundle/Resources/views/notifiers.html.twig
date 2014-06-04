@@ -1,0 +1,27 @@
+
+{% if app.user %}
+    {% set cars = app.user.cars|length %}
+{% endif %}
+
+{% if app.session.get('notifications') != 'clear' and app.user and (app.user.phone is empty or cars == 0) %}
+
+    {% if app.user.phone is empty and cars > 0 %}
+        {% set phrase = 'телефон' %}
+    {% elseif app.user.phone is not empty and cars == 0 %}
+        {% set phrase = 'автомобиль' %}
+    {% else %}
+        {% set phrase = 'телефон и автомобиль</span>' %}
+    {% endif %}
+
+    <div class="row notifiers" ng-controller="MessagesController">
+        <div class="col-lg-12">
+            <div ng-cloak class="alert alert-warning ag-show-hide" ng-init="notifier = true" ng-show="notifier">
+                <button type="button" class="close" data-dismiss="alert" ng-click="clearNotifications()">×</button>
+                <i class="fa fa-exclamation-circle"></i> 
+                У вас не добавлен {{ phrase|raw }}, другие автомобилисты не могут с вами связаться <i class="fa fa-frown-o"></i> &nbsp;
+                <strong><a href="{{path('user_profile')}}">Заполнить?</a></strong>
+            </div>
+        </div>
+    </div>
+
+{% endif %}

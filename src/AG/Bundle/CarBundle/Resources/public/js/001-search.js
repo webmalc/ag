@@ -11,6 +11,7 @@ search.controller('SearchController', ['$scope', '$http', '$modal', function($sc
 
         $scope.processCarNumber = function() {
             
+            $scope.$apply();
             $scope.noResults = false;
             $scope.results = false;
             $scope.success = false;
@@ -58,6 +59,12 @@ search.controller('SearchController', ['$scope', '$http', '$modal', function($sc
         $scope.showMessageModal = function() {
             var messagesModal = $modal.open({
                 templateUrl: Routing.generate('car_search_messages_modal'),
+            });
+        };
+        
+        $scope.registrationAlert = function() {
+            var registrationModal = $modal.open({
+                templateUrl: Routing.generate('car_search_registration_modal'),
             });
         };
 

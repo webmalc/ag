@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title">Зарегистрируйтесь в AutoGRU</h4>
+</div>
+    <div class="modal-body text-center">
+        <p>Автомобиль найден, но отправка сообщений доступна только зарегистрированным пользователям и авторизованным пользователям!</p>
+        <div class="btn-list">
+            <a href="{{path('user_registration')}}" class="btn btn-success btn-lg"><i class="fa fa-plus"></i> Зарегистрироваться!</a>
+            <a href="{{path('fos_user_security_login')}}" class="btn btn-info btn-lg"><i class="fa fa-sign-in"></i> Войти!</a>
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$dismiss()"><i class="fa fa-ban fa-lg"></i> Отмена</button>
+    </div>
+</form>

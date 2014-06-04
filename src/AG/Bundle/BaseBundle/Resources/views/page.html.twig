@@ -7,6 +7,10 @@
     {% endblock %}
 
     <div class="container main-container">
+        {% block notifiers %}
+            {% include 'AGBaseBundle::notifiers.html.twig' %}
+        {% endblock %}
+        
         {% block messages %}
             {% include 'AGBaseBundle::messages.html.twig' %}
         {% endblock %}

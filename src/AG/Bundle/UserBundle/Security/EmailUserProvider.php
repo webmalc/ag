@@ -14,7 +14,13 @@ class EmailUserProvider extends Base
     {
         $user = parent::findUser($username);
         if ($user == null) {
-            return $this->userManager->findUserBy(['phone' => User::cleanPhone($username)]);
+            
+            $phone =  User::cleanPhone($username);
+            
+            if(!empty($phone)) {
+                return $this->userManager->findUserBy(['phone' => User::cleanPhone($phone)]);
+            } 
+            return null;
         }
         return $user;
     }

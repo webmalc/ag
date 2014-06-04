@@ -113,5 +113,16 @@ class SearchController extends Controller
     {
         return [];
     }
+    
+    /**
+     * Modal with registration messages
+     * @Route("/registration/modal", name="car_search_registration_modal", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function registrationModalAction()
+    {
+        return [];
+    }
 
 }

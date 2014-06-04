@@ -124,6 +124,17 @@ class Car implements \JsonSerializable
      */
     public static function cleanNumber($number)
     {
+        $replace = array(
+            "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+            "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
+            "я", "ч", "с", "м", "и", "т", "ь", "б", "ю"
+        );
+        $search = array(
+            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
+            "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
+            "z", "x", "c", "v", "b", "n", "m", ",", "."
+        );
+        $number = str_replace($search, $replace, mb_strtolower($number));
         $number = preg_replace('/[^А-Яа-я0-9]/u', '', $number);
 
         if (empty($number)) {
@@ -263,7 +274,7 @@ class Car implements \JsonSerializable
             'year' => $this->getYear(),
         ];
     }
-    
+
     /**
      * Set data from array 
      * @param string[] $data
@@ -272,15 +283,15 @@ class Car implements \JsonSerializable
     public function setArrayData($data)
     {
         $allowed = ['number', 'mark', 'model', 'horsepower', 'year'];
-        
+
         foreach ($data as $key => $value) {
-            if(!in_array($key, $allowed)) {
+            if (!in_array($key, $allowed)) {
                 continue;
             }
             $method = 'set' . ucfirst($key);
             $this->$method($value);
         }
-        
+
         return $this;
     }
 
