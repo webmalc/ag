@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AG\Bundle\UserBundle\Document\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 /**
  * User controller
@@ -38,6 +39,7 @@ class UserController extends Controller
     /**
      * @Route("/registration", name="user_registration")
      * @Method("GET")
+     * @Cache(expires="tomorrow", public=true)
      * @Template()
      */
     public function registrationAction()

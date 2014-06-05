@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li>
-                    <a href="http://gravatar.com/emails/" id="user_gravatar_link" tooltip-placement="bottom" tooltip="Поменяйте свой аватар на gravatar.com">
+                    <a target="_blank" href="http://gravatar.com/emails/" id="user_gravatar_link" tooltip-placement="bottom" tooltip="Поменяйте свой аватар на gravatar.com">
                         <img src="{{ gravatar(app.user.email) }}" alt="{{ app.user.username }} gravatar" class="img-circle" style="vertical-align: middle;">
                     </a>
                 </li>

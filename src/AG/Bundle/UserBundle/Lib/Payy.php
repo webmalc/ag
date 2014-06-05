@@ -38,6 +38,12 @@ class Payy
         $this->shortPhone = $container->getParameter('ag.payy.short_phone');
     }
     
+    /**
+     * Send messages
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return string[]
+     * @throws \Exception
+     */
     public function send(Request $request)
     {
         $required = ['unique', 'country', 'operator', 'number', 'phone', 'message', 'hash'];

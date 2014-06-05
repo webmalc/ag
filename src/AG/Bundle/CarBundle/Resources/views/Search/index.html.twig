@@ -43,16 +43,22 @@
                                 <button class="btn btn-warning" ng-click="{% if app.user %}sendMessage(car, 'danger'){% else %}registrationAlert(){% endif %}"><i class="fa fa-exclamation-circle"></i> Автомобиль в опасности!</button>
                                 <div class="search-results-sms">
                                     <p>или</p>
-                                    <div class="alert alert-success"><i class="fa fa-comment-o"></i> SMS в свободной форме на номер 3498!</div>
+                                    <div class="alert alert-success">
+                                        <i class="fa fa-comment-o"></i> SMS в свободной форме:
+                                        <p><input id="sendSmsTеxt" value="payy 1006 {[{car.number}]} <текст сообщения>"></p>
+                                        <p><small>* стоимость услуги 5 <i class="fa fa-rub"></i></small></p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <p ng-cloak ng-show="1 || noResults">
+                            <p ng-cloak ng-show="noResults">
                                 К сожалению, мы не нашли нужный автомобиль <i class="fa fa-frown-o"></i>. 
                                 Чтобы этого не повторилось <button class="btn btn-success btn-xs" ng-click="showMessageModal()"><i class="fa fa-exclamation"></i> сообщите владельцу</button> об AutoGRU.
                             </p>
+                            {% if app.user == null %}
                             <p>или</p>
                             <a href="{{path('user_registration')}}" class="btn btn-success btn"><i class="fa fa-plus"></i> Добавить автомобиль!</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

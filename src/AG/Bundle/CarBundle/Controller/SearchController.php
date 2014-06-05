@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AG\Bundle\CarBundle\Document\Car;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 /**
  * Car search controller
@@ -26,13 +27,13 @@ class SearchController extends Controller
     {
         $data = json_decode($request->getContent(), true);
 
-        if (empty($data)) {
+        if (empty($data['number'])) {
             return new JsonResponse([
                 'success' => false
             ]);
         }
 
-        $number = Car::cleanNumber(implode('', $data));
+        $number = Car::cleanNumber($data['number']);
 
         $car = $this->get('doctrine_mongodb')
                 ->getManager()
@@ -95,6 +96,7 @@ class SearchController extends Controller
     /**
      * Car search layout
      * @Route("/", name="car_search_layout")
+     * @Cache(expires="tomorrow", public=true)
      * @Method("GET")
      * @Template()
      */
@@ -106,6 +108,7 @@ class SearchController extends Controller
     /**
      * Modal with messages
      * @Route("/messages/modal", name="car_search_messages_modal", options={"expose"=true})
+     * @Cache(expires="tomorrow", public=true)
      * @Method("GET")
      * @Template()
      */

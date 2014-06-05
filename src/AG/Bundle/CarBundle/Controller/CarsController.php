@@ -48,17 +48,15 @@ class CarsController extends Controller
         $translator = $this->container->get('translator');
         $data = json_decode($request->getContent(), true);
 
-        if (empty($data)) {
+        if (empty($data['number'])) {
             return new JsonResponse([
                 'success' => false,
                 'message' => $translator->trans('create.error', [], 'AGCarBundle')
             ]);
         }
 
-        $number = implode('', $data);
-
         $car = new Car();
-        $car->setNumber($number)
+        $car->setNumber($data['number'])
                 ->setUser($this->getUser())
         ;
         $errors = $this->get('validator')->validate($car);

@@ -32,7 +32,7 @@ class Car implements \JsonSerializable
      * @Assert\Length(
      *      min=6,
      *      minMessage="Слишком короткий номер",
-     *      max=9,
+     *      max=10,
      *      maxMessage="Слишком длинный номер"
      * )
      */
@@ -124,18 +124,14 @@ class Car implements \JsonSerializable
      */
     public static function cleanNumber($number)
     {
-        $replace = array(
-            "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
-            "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э",
-            "я", "ч", "с", "м", "и", "т", "ь", "б", "ю"
-        );
         $search = array(
-            "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
-            "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'",
-            "z", "x", "c", "v", "b", "n", "m", ",", "."
+            "а", "в", "е", "к", "м", "н", "о", "р", "с", "т", "у", "х"
         );
-        $number = str_replace($search, $replace, mb_strtolower($number));
-        $number = preg_replace('/[^А-Яа-я0-9]/u', '', $number);
+        $replace = array(
+            "a", "b", "e", "k", "m", "h", "o", "p", "c", "t", "y", "x"
+        );
+
+        $number = preg_replace('/[^A-Za-z0-9]/u', '', str_replace($search, $replace, mb_strtolower($number)));
 
         if (empty($number)) {
             return null;

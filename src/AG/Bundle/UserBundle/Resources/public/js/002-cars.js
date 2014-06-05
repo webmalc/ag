@@ -15,18 +15,8 @@ profile.controller('CarsController', ['$scope', '$http', function($scope, $http)
            $scope.years.push({text: year});
 	}
 
-        var checkLength = function() {
-            if (!$scope.cars.length) {
-                $scope.warning = 'У вас нет ни одного автомобиля! Добавьте его ниже.';
-            } else {
-                $scope.warning = null;
-            }
-        };
-
         $http.get(Routing.generate('rest_user_cars')).success(function(data) {
             $scope.cars = data;
-            checkLength();
-
         });
 
         $scope.delete = function(id, index) {
@@ -44,7 +34,6 @@ profile.controller('CarsController', ['$scope', '$http', function($scope, $http)
 
                 if (data.success) {
                     $scope.cars.splice(index, 1);
-                    checkLength();
                 } else {
                     $scope.error = data.message;
                 }
@@ -56,7 +45,7 @@ profile.controller('CarsController', ['$scope', '$http', function($scope, $http)
             $scope.processCarNumberButton = true;
             $scope.$apply();
 
-            var data = {1: $scope.num1, 2: $scope.num2, 3: $scope.num3, 4: $scope.num4};
+            var data = {number: $scope.number};
             
             $http.post(Routing.generate('rest_user_car_create'), data).success(function(data) {
                 $scope.processCarNumberButton = false;
