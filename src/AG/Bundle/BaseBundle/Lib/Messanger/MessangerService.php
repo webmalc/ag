@@ -36,10 +36,12 @@ class MessangerService
      * @param \AG\Bundle\UserBundle\Document\User $user
      * @param string[] $data
      * @param string $subject message subject
-     * @param string $sms send sms on/off
+     * @param boolean $sms send sms on/off
+     * @param boolean $crop crop sms on/off
+     * @param boolean $checkIp crop sms on/off
      * @return string[]
      */
-    public function send(User $user, $data = null, $subject = null, $sms = false)
+    public function send(User $user, $data = null, $subject = null, $sms = false, $crop = true, $checkIp = true)
     {   
         /* Email send */
         $emailProvider = $this->container->get('ag.messanger.providers.email');
@@ -50,16 +52,26 @@ class MessangerService
 
         $this->messanger->addProvider($emailProvider);
 
+        $checkIpResult = true;
+        if ($checkIp) {
+            $checkIpResult = $this->checkIp();
+        }
+
         /* SMS send */
-        if ($sms && $user->getPhone() && $this->checkIp()) {
+        if ($sms && $user->getPhone() && $checkIpResult) {
+            
             $smsProvider = $this->container->get('ag.messanger.providers.sms');
             $smsProvider->setRecipient($user->getPhone())
                     ->setSubject($subject)
                     ->setData($data)
+                    ->setCrop($crop)
             ;
+            
             $this->messanger->addProvider($smsProvider);
             
-            $this->addMessage($user, $data, $subject);
+            if ($checkIp) {
+                $this->addMessage($user, $data, $subject);
+            }
         }
 
         $result = $this->messanger->send();

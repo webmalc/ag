@@ -19,3 +19,7 @@ services:
     ag.user.ulogin:
         class:  AG\Bundle\UserBundle\Lib\Ulogin
         arguments:  ["@service_container"]
+        
+    ag.user.payy:
+        class:  AG\Bundle\UserBundle\Lib\Payy
+        arguments:  ["@service_container"]

@@ -58,7 +58,7 @@ class Ulogin
 
     /**
      * Constructor
-     * @param \Doctrine\ODM\MongoDB\DocumentManager $dm
+     * @param \Doctrine\ODM\MongoDB\DocumentManager $container
      */
     public function __construct(ContainerInterface $container)
     {

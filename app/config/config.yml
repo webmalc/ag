@@ -4,6 +4,10 @@ imports:
 
 parameters:
     max.sms.interval: 10
+    
+    #payy
+    ag.payy.key: 6dfgmEW98vmWEbdfe3;
+    ag.payy.short_phone: 2234
 
 framework:
     #esi:             ~

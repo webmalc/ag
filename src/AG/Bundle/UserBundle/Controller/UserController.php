@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use AG\Bundle\UserBundle\Document\User;
 
@@ -16,6 +17,24 @@ use AG\Bundle\UserBundle\Document\User;
  */
 class UserController extends Controller
 {
+    /**
+     * @Route("/get/sms", name="user_get_sms")
+     * @Method("POST")
+     * @Template()
+     */
+    public function getSmsAction(Request $request)
+    {
+        $sms = $this->container->get('ag.user.payy');
+        
+        try {
+            $sms->send($request);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        
+        return new Response('OK');
+    }
+
     /**
      * @Route("/registration", name="user_registration")
      * @Method("GET")

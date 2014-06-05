@@ -38,6 +38,7 @@ security:
         - { path: ^/user/new, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/ulogin, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/get/sms, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user/password/reset, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_wdt, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' } 
         - { path: ^/_profiler, roles: 'IS_AUTHENTICATED_ANONYMOUSLY' }
