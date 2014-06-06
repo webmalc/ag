@@ -201,4 +201,15 @@ class UserController extends Controller
         return new JsonResponse();
     }
     
+    /**
+     * Modal with stats
+     * @Route("/stats/modal", name="user_stats_modal", options={"expose"=true})
+     * @Method("GET")
+     * @Template()
+     */
+    public function statsModalAction()
+    {
+        return [];
+    }
+    
 }

@@ -14,6 +14,7 @@
             
             <ul class="nav navbar-nav">
                 <li><a href="{{ path("car_search_layout") }}"><i class="fa fa-search"></i> {{ 'navbar.search'|trans({}, 'AGUserBundle') }}</a></li>
+                <li ng-controller="StatsController"><a href="#" ng-click="show()"><i class="fa fa-car"></i> {{ 'navbar.stats'|trans({'%number%': cars_total()}, 'AGUserBundle') }}</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

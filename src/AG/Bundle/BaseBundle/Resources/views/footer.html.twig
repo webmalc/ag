@@ -11,10 +11,10 @@
         <div class="navbar-collapse collapse" id="navbar-main" ng-class="!footerCollapsed && 'in'">
 
             <ul class="nav navbar-nav">
-                <li><a href="{{ path('page', {'name': 'why'}) }}"><i class="fa fa-question-circle "></i>&nbsp; <small>Зачем это нужно?</small></a></li>
-                <li><a href="{{ path('page', {'name': 'rules'}) }}"><i class="fa fa-file-text-o"></i> &nbsp; <small>Правила</small></a></li>
-                <li><a href="{{ path('page', {'name': 'actions'}) }}"><i class="fa fa-bullhorn"></i> &nbsp; <small>Акции</small></a></li>
-                <li><a href="{{ path('page', {'name': 'about'}) }}"><i class="fa fa-car"></i> &nbsp; <small>О нас</small></a></li>
+                <li><a href="{{ path('page', {'name': 'why'}) }}"><i class="fa fa-question-circle "></i>&nbsp; <small>{{ 'footer.why'|trans({}, 'AGUserBundle') }}</small></a></li>
+                <li><a href="{{ path('page', {'name': 'rules'}) }}"><i class="fa fa-file-text-o"></i> &nbsp; <small>{{ 'footer.rules'|trans({}, 'AGUserBundle') }}</small></a></li>
+                <li><a href="{{ path('page', {'name': 'actions'}) }}"><i class="fa fa-bullhorn"></i> &nbsp; <small>{{ 'footer.actions'|trans({}, 'AGUserBundle') }}</small></a></li>
+                <li><a href="{{ path('page', {'name': 'about'}) }}"><i class="fa fa-car"></i> &nbsp; <small>{{ 'footer.about'|trans({}, 'AGUserBundle') }}</small></a></li>
             </ul>
             
             <ul class="nav navbar-nav navbar-right">

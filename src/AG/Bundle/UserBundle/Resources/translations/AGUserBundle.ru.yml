@@ -28,3 +28,10 @@ phone_set.success: 'Ура! Телефон успешно сохранен.'
 
 #Navbar
 navbar.search: 'Новый поиск'
+navbar.stats: 'В системе %number% автомобилей'
+
+#Footer
+footer.about: 'О нас'
+footer.rules: 'Правила'
+footer.why: 'Зачем это нужно?'
+footer.actions: 'Акции'

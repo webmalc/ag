@@ -23,3 +23,9 @@ services:
     ag.user.payy:
         class:  AG\Bundle\UserBundle\Lib\Payy
         arguments:  ["@service_container"]
+        
+    ag.twig.stats_extension:
+        class: AG\Bundle\UserBundle\Twig\StatsExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }

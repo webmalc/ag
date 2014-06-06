@@ -1,0 +1,14 @@
+<div class="modal-header">
+    <h4 class="modal-title">Статистика AutoGRU</h4>
+</div>
+    <div class="modal-body text-center">
+        <div class="alert alert-info"><i class="fa fa-car"></i>  Автомобилей всего {{cars_total()}}</div>
+        <div class="alert alert-info"><i class="fa fa-car"></i>  Автомобилей за сегодня {{cars_today()}}</div>
+        <div class="alert alert-info"><i class="fa fa-comment-o"></i> Сообщений всего {{messages_total()}}</div>
+        <div class="alert alert-info"><i class="fa fa-comment-o"></i> Сообщений за сегодня {{messages_today()}}</div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$dismiss()"><i class="fa fa-ban fa-lg"></i> Отмена</button>
+    </div>
+</form>
