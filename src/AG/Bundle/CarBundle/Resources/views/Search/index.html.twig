@@ -19,13 +19,13 @@
                         <h3 class="panel-title"><i class="fa fa-car"></i> Найти автовладельца</h3>
                     </div>
                     <div class="panel-body">
-
                         {% include 'AGBaseBundle::carNumber.html.twig'  with {'icon': 'search'}  %}
-
                     </div>
                 </div>
             </div>
         </div>
+
+        <a name="scroll" id="scroll"></a>
 
         <div ng-cloak class="row" ng-show="noResults || results">
             <div class="col-lg-6 col-lg-offset-3 ">
@@ -37,7 +37,7 @@
                         <div class="btn-list search-results">
 
                             <div ng-cloak ng-show="results">
-                                   
+
                                 <p>Автомобиль найден! Отправьте сообщение:</p>
                                 <button class="btn btn-default" ng-click="{% if app.user %}sendMessage(car, 'prevent'){% else %}registrationAlert(){% endif %}"><i class="fa fa-frown-o"></i> Автомобиль мешает!</button>
                                 <button class="btn btn-warning" ng-click="{% if app.user %}sendMessage(car, 'danger'){% else %}registrationAlert(){% endif %}"><i class="fa fa-exclamation-circle"></i> Автомобиль в опасности!</button>
@@ -45,7 +45,8 @@
                                     <p>или</p>
                                     <div class="alert alert-success">
                                         <i class="fa fa-comment-o"></i> SMS в свободной форме:
-                                        <p><input id="sendSmsTеxt" value="payy 1006 {[{car.number}]} <текст сообщения>"></p>
+                                        <p><a ng-init="sms = false" ng-show="!sms" ng-click="sms = true" href="#" id="sendSmsLink">payy 1006 {[{car.number}]} <текст сообщения></a></p>
+                                        <p ng-cloak ng-show="sms"><textarea id="sendSmsTеxt">payy 1006 {[{car.number}]} <текст сообщения></textarea></p>
                                         <p><small>* стоимость услуги 5 <i class="fa fa-rub"></i></small></p>
                                     </div>
                                 </div>
@@ -56,8 +57,8 @@
                                 Чтобы этого не повторилось <button class="btn btn-success btn-xs" ng-click="showMessageModal()"><i class="fa fa-exclamation"></i> сообщите владельцу</button> об AutoGRU.
                             </p>
                             {% if app.user == null %}
-                            <p>или</p>
-                            <a href="{{path('user_registration')}}" class="btn btn-success btn"><i class="fa fa-plus"></i> Добавить автомобиль!</a>
+                                <p>или</p>
+                                <a href="{{path('user_registration')}}" class="btn btn-success btn"><i class="fa fa-plus"></i> Добавить автомобиль!</a>
                             {% endif %}
                         </div>
                     </div>
@@ -67,11 +68,11 @@
 
         <div ng-cloak ng-show="success || error || sending" class="row">
             <div class="col-lg-6 col-lg-offset-3 ">
-                
+
                 <div class="alert alert-info ag-show-hide" ng-cloak ng-show="sending">
                     <i class="fa fa-spinner fa-spin fa-lg"></i> Отправка сообщения...
                 </div>
-                
+
                 <div class="alert alert-success ag-show-hide" ng-cloak ng-show="success">
                     <button type="button" class="close" aria-hidden="true" ng-click="success = ''">&times;</button>
                     {[{success}]}
@@ -82,9 +83,9 @@
                     {[{error}]}
                 </div>
             </div>
-        </div>               
+        </div>
 
-
+        {% include 'AGBaseBundle::socials.html.twig' %}
     </div>
 
 {% endblock %}

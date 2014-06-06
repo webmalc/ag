@@ -1,0 +1,28 @@
+<div class="navbar navbar-default navbar-fixed-bottom" id="footer" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button ng-init="footerCollapsed = true" ng-click="footerCollapsed = !footerCollapsed" class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-main" ng-class="!footerCollapsed && 'in'">
+
+            <ul class="nav navbar-nav">
+                <li><a href="{{ path('page', {'name': 'why'}) }}"><i class="fa fa-question-circle "></i>&nbsp; <small>Зачем это нужно?</small></a></li>
+                <li><a href="{{ path('page', {'name': 'rules'}) }}"><i class="fa fa-file-text-o"></i> &nbsp; <small>Правила</small></a></li>
+                <li><a href="{{ path('page', {'name': 'actions'}) }}"><i class="fa fa-bullhorn"></i> &nbsp; <small>Акции</small></a></li>
+                <li><a href="{{ path('page', {'name': 'about'}) }}"><i class="fa fa-car"></i> &nbsp; <small>О нас</small></a></li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="mailto:mail@autog.ru" tooltip-placement="top" tooltip="Написать нам"><i class="fa fa-envelope  fa-lg"></i> &nbsp; <small>mail@autog.ru</small></a></li>
+                <li><a href="#" tooltip-placement="top" tooltip="Мы в Вконтакте"><i class="fa fa-vk fa-lg"></i> &nbsp; <small>vk.com</small></a></li>
+                <li><a href="#" tooltip-placement="top" tooltip="Мы в Facebook"><i class="fa fa-facebook fa-lg"></i> &nbsp; <small>facebook.com</small></a></li>
+            </ul>
+            
+        </div>
+    </div>
+</div>

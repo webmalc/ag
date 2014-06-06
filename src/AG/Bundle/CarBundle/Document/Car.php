@@ -65,17 +65,17 @@ class Car implements \JsonSerializable
     protected $model;
 
     /**
-     * @var string
+     * @var int
      * @Gedmo\Versioned
-     * @ODM\String(name="horsepower", type="int")
+     * @ODM\Int(name="horsepower", type="int")
      * @Assert\Type("numeric")
      */
     protected $horsepower;
 
     /**
-     * @var string
+     * @var int
      * @Gedmo\Versioned
-     * @ODM\String(name="year", type="int")
+     * @ODM\Int(name="year", type="int")
      * @Assert\Type("numeric")
      */
     protected $year;

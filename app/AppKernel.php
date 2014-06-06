@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new AG\Bundle\UserBundle\AGUserBundle(),
             new AG\Bundle\BaseBundle\AGBaseBundle(),
             new AG\Bundle\CarBundle\AGCarBundle(),
+            new AG\Bundle\StaticBundle\AGStaticBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,12 @@
+{% extends 'AGBaseBundle::page.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-offset-3 ">
+            {% block text %}{% endblock %}
+        </div>
+    </div>
+            
+   {% include 'AGBaseBundle::socials.html.twig' %}
+{% endblock %}
+

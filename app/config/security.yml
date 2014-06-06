@@ -19,6 +19,7 @@ security:
                 csrf_provider: form.csrf_provider
                 login_path:  /user/login
                 check_path:  /user/login_check
+                require_previous_session: true
             logout:       
                 path:   /user/logout
                 target: /

@@ -96,7 +96,6 @@ class SearchController extends Controller
     /**
      * Car search layout
      * @Route("/", name="car_search_layout")
-     * @Cache(expires="tomorrow", public=true)
      * @Method("GET")
      * @Template()
      */
@@ -120,6 +119,7 @@ class SearchController extends Controller
     /**
      * Modal with registration messages
      * @Route("/registration/modal", name="car_search_registration_modal", options={"expose"=true})
+     * @Cache(expires="tomorrow", public=true)
      * @Method("GET")
      * @Template()
      */

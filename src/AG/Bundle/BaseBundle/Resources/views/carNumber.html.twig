@@ -4,7 +4,7 @@
         <input type="text" ng-model="number" class="form-control input-lg car-number" maxlength="10" required pattern=".{6,10}" ng-minlength="6" ng-maxlength="10" placeholder="A999AA177">
     </div>
     
-    <button ng-disabled="carSearchForm.$invalid" ng-click="processCarNumber()" type="submit" class="btn btn-success btn-lg">
+    <button id="car-number-button" ng-disabled="carSearchForm.$invalid" ng-click="processCarNumber()" type="submit" class="btn btn-success btn-lg">
         <i ng-cloak ng-show="processCarNumberButton" class="fa fa-spinner fa-spin"></i>
         <i ng-init="processCarNumberButton = false" ng-show="!processCarNumberButton"  class="fa fa-{{icon}}"></i>
     </button>

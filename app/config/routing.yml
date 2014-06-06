@@ -1,6 +1,11 @@
 home:
     path:      /
     defaults:  { _controller: AGCarBundle:Search:index }
+    
+ag_static:
+    resource: "@AGStaticBundle/Controller/"
+    type:     annotation
+    prefix:   /static
 
 ag_car:
     resource: "@AGCarBundle/Controller/"

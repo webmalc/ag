@@ -10,7 +10,7 @@ search.controller('SearchController', ['$scope', '$http', '$modal', function($sc
         $scope.sending = false;
 
         $scope.processCarNumber = function() {
-            $scope.$apply();
+
             $scope.noResults = false;
             $scope.results = false;
             $scope.success = false;
